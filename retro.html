@@ -248,16 +248,30 @@
             <circle cx="200" cy="200" r="185" fill="none" stroke="#333" stroke-width="0.5" opacity="0.5"/>
             <circle cx="200" cy="200" r="192" fill="none" stroke="#333" stroke-width="0.5" opacity="0.5"/>
             <circle cx="200" cy="200" r="196" fill="none" stroke="#333" stroke-width="0.5" opacity="0.5"/>
+            <!-- Highlight ring -->
+            <circle cx="200" cy="200" r="140" fill="none" stroke="rgba(214,53,53,0.2)" stroke-width="1.5"/>
+            <circle cx="200" cy="200" r="100" fill="none" stroke="rgba(43,69,168,0.15)" stroke-width="1"/>
             <!-- Red label -->
             <circle cx="200" cy="200" r="78" fill="#D63535"/>
-            <!-- Logo clipped -->
+            <!-- Label gradient overlay -->
+            <defs>
+              <radialGradient id="m2labelGrad" cx="40%" cy="40%">
+                <stop offset="0%" stop-color="rgba(255,255,255,0.1)"/>
+                <stop offset="100%" stop-color="rgba(0,0,0,0.12)"/>
+              </radialGradient>
+            </defs>
+            <circle cx="200" cy="200" r="78" fill="url(#m2labelGrad)"/>
+            <!-- Inner ring on label -->
+            <circle cx="200" cy="200" r="62" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="0.8"/>
+            <!-- Logo clipped in center -->
             <clipPath id="logoClip">
-              <circle cx="200" cy="200" r="60"/>
+              <circle cx="200" cy="200" r="48"/>
             </clipPath>
-            <image href="/logo-grassefm.jpg" x="140" y="140" width="120" height="120" clip-path="url(#logoClip)" preserveAspectRatio="xMidYMid slice"/>
+            <image href="logo-grassefm.jpg" x="152" y="152" width="96" height="96" clip-path="url(#logoClip)" preserveAspectRatio="xMidYMid slice"/>
+            <circle cx="200" cy="200" r="48" fill="none" stroke="rgba(0,0,0,0.2)" stroke-width="2"/>
             <!-- Center hole -->
-            <circle cx="200" cy="200" r="8" fill="#1A1A1A"/>
-            <circle cx="200" cy="200" r="4" fill="#333"/>
+            <circle cx="200" cy="200" r="6" fill="#1A1A2E"/>
+            <circle cx="200" cy="200" r="6" fill="none" stroke="#252540" stroke-width="1"/>
           </svg>
         </div>
       </div>
