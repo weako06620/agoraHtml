@@ -688,7 +688,7 @@
 
     // ---- Programs data ----
     const programs = [
-      { title: 'Reportages Actus', description: "Des reportages au cœur de l'actualité locale des villes de la principauté de Monaco et des Alpes-Maritimes.", category: 'Actu & Société', categoryColor: 'pink', image: 'https://www.agoracotedazur.fr/wp-content/uploads/Reportages-actusocieté.jpg' },
+      { title: 'Reportages Actus', description: "Des reportages au cœur de l'actualité locale des villes de la principauté de Monaco et des Alpes-Maritimes.", category: 'Actu & Société', categoryColor: 'pink', image: 'https://www.agoracotedazur.fr/wp-content/uploads/Reportages-actusocieté.jpg', link: 'https://open.spotify.com/episode/2Ctb8fF4EqGXtjWpFs8wEf' },
       { title: 'Ciné Passion', description: 'Critiques des films sortis dans les salles du département, avec Pascal Gaymard. Vivez le 7ème art.', category: 'Culture', categoryColor: 'blue', image: 'https://www.agoracotedazur.fr/wp-content/uploads/Cine-passion-1.jpg' },
       { title: 'La Boîte de Jazz', description: "Hommage à Gilbert d'Alto. Une sélection des plus belles pépites jazz pour accompagner vos soirées.", category: 'Musique', categoryColor: 'yellow', image: 'https://www.agoracotedazur.fr/wp-content/uploads/elementor/thumbs/La-boite-de-Jazz-r03whyvg48wm9fxk48bbaxaw3zd00h5ebdn2bqffiw.jpg' },
       { title: 'Le Bonheur est dans la Poêle', description: 'Gastronomie, recettes provençales et rencontres avec les chefs de la région.', category: 'Gastronomie', categoryColor: 'orange', image: 'https://www.agoracotedazur.fr/wp-content/uploads/Le-bonheur-est-dans-la-poele.jpg' },
@@ -801,7 +801,10 @@
             <h3 class="font-display text-xl text-navy mb-2">${prog.title}</h3>
             <p class="text-sm text-navy/70 mb-4 line-clamp-2" style="display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">${prog.description}</p>
             <div class="flex items-center justify-between">
-              <button class="comic-btn bg-brand text-white px-4 py-1.5 text-sm rounded-md">ÉCOUTER</button>
+              ${prog.link
+                ? `<a href="${prog.link}" target="_blank" rel="noopener" class="comic-btn bg-brand text-white px-4 py-1.5 text-sm rounded-md inline-block">ÉCOUTER</a>`
+                : `<button class="comic-btn bg-brand text-white px-4 py-1.5 text-sm rounded-md">ÉCOUTER</button>`
+              }
               <div class="flex items-center gap-2">${platformIcons}</div>
             </div>
           </div>
