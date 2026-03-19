@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agora Cote d'Azur - Vintage</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Instrument+Sans:wght@400;500;600;700&display=swap');
+
+    body {
+      --cream: #FFFFFF;
+      --cream-dark: #EDE7DA;
+      --lavender: #D4CBE5;
+      --lavender-light: #E8E2F2;
+      --mint: #A8D8B8;
+      --mint-dark: #7CC49A;
+      --teal: #2BA8A0;
+      --pink: #F06292;
+      --orange: #E88A3A;
+      --coral: #F47C6A;
+      --black: #1A1A1A;
+      --text: #1A1A1A;
+      --text-dim: #6B6660;
+      --border: #1A1A1A;
+
+      background: var(--cream);
+      color: var(--text);
+      font-family: 'Instrument Sans', system-ui, sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+      margin: 0;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background-image:
+        repeating-linear-gradient(120deg, transparent, transparent 80px, rgba(0,0,0,0.012) 80px, rgba(0,0,0,0.012) 81px),
+        repeating-linear-gradient(60deg, transparent, transparent 100px, rgba(0,0,0,0.01) 100px, rgba(0,0,0,0.01) 101px),
+        repeating-linear-gradient(175deg, transparent, transparent 120px, rgba(0,0,0,0.008) 120px, rgba(0,0,0,0.008) 121px);
+    }
+
+    body > * { position: relative; z-index: 1; }
+
+    .m4-mono {
+      font-family: 'Space Mono', monospace;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .m4-border { border: 2px solid var(--border); }
+    .m4-border-thick { border: 3px solid var(--border); }
+
+    .m4-btn {
+      font-family: 'Space Mono', monospace;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      font-size: 0.85rem;
+      border: 2px solid var(--border);
+      border-radius: 50px;
+      padding: 12px 24px;
+      min-height: 44px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--mint);
+      color: var(--black);
+      text-decoration: none;
+    }
+
+    @media (min-width: 640px) { .m4-btn { padding: 14px 32px; } }
+
+    .m4-btn:hover {
+      background: var(--mint-dark);
+      transform: translateY(-2px);
+      box-shadow: 4px 4px 0px var(--border);
+    }
+
+    .m4-btn-outline {
+      font-family: 'Space Mono', monospace;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      font-size: 0.85rem;
+      border: 2px solid var(--border);
+      border-radius: 50px;
+      padding: 12px 24px;
+      min-height: 44px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      background: transparent;
+      color: var(--black);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    @media (min-width: 640px) { .m4-btn-outline { padding: 14px 32px; } }
+
+    .m4-btn-outline:hover {
+      background: var(--cream-dark);
+      transform: translateY(-2px);
+      box-shadow: 4px 4px 0px var(--border);
+    }
+
+    .m4-card {
+      background: white;
+      border: 2px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .m4-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 6px 6px 0px var(--border);
+    }
+
+    .m4-feature {
+      background: white;
+      border: 3px solid var(--border);
+      border-radius: 24px;
+      padding: 20px 16px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    @media (min-width: 640px) { .m4-feature { padding: 28px 24px; } }
+
+    .m4-feature:hover {
+      transform: translateY(-3px);
+      box-shadow: 5px 5px 0px var(--border);
+    }
+
+    .m4-starburst {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .m4-starburst::before {
+      content: '';
+      position: absolute;
+      inset: -20px;
+      background: var(--teal);
+      clip-path: polygon(50% 0%, 63% 15%, 80% 5%, 75% 22%, 98% 25%, 82% 36%, 100% 50%, 82% 58%, 95% 75%, 73% 68%, 65% 92%, 55% 72%, 40% 95%, 38% 72%, 18% 85%, 25% 64%, 3% 60%, 18% 48%, 0% 30%, 20% 30%, 10% 10%, 30% 20%, 38% 2%, 45% 18%);
+      z-index: -1;
+    }
+
+    .m4-starburst-pink::before { background: var(--pink); }
+    .m4-starburst-orange::before { background: var(--orange); }
+
+    .m4-marquee-wrap {
+      background: var(--black);
+      overflow: hidden;
+      white-space: nowrap;
+      padding: 12px 0;
+    }
+
+    .m4-marquee-track {
+      display: inline-flex;
+      animation: m4-scroll 22s linear infinite;
+    }
+
+    .m4-marquee-track span {
+      font-family: 'Space Mono', monospace;
+      font-weight: 700;
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--cream);
+      padding: 0 2rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .m4-marquee-track span::after {
+      content: '\2726';
+      color: var(--mint);
+      font-size: 0.6rem;
+    }
+
+    @keyframes m4-scroll {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    @keyframes m4-pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(244, 124, 106, 0.5); }
+      50% { box-shadow: 0 0 0 8px rgba(244, 124, 106, 0); }
+    }
+
+    .hero-title {
+      font-size: clamp(1.8rem, 4vw, 3.2rem);
+    }
+
+    .filter-pill {
+      font-family: 'Space Mono', monospace;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-size: 0.75rem;
+      font-weight: 700;
+      border: 2px solid var(--border);
+      border-radius: 9999px;
+      padding: 8px 20px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      background: transparent;
+      color: var(--black);
+    }
+
+    .filter-pill:hover {
+      background: var(--cream-dark);
+    }
+
+    .filter-pill.active {
+      background: var(--black);
+      color: white;
+    }
+
+    input:focus, textarea:focus {
+      outline: none;
+      box-shadow: 4px 4px 0px var(--border);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========== NAVBAR ========== -->
+  <nav class="px-2 sm:px-4 md:px-8 py-3 sm:py-4">
+    <div class="m4-border-thick rounded-2xl bg-white px-4 sm:px-6 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <img src="logo-grassefm.jpg" alt="Agora Cote d'Azur" class="w-10 h-10 rounded-full object-cover" />
+        <span class="m4-mono font-bold text-sm sm:text-base">Agora Cote d'Azur</span>
+      </div>
+      <div class="hidden md:flex items-center gap-6">
+        <a href="#accueil" class="m4-mono text-xs font-bold hover:text-[var(--teal)] transition-colors">Accueil</a>
+        <a href="#podcasts" class="m4-mono text-xs font-bold hover:text-[var(--teal)] transition-colors">Podcasts</a>
+        <a href="#emissions" class="m4-mono text-xs font-bold hover:text-[var(--teal)] transition-colors">Emissions</a>
+        <a href="#contact" class="m4-mono text-xs font-bold hover:text-[var(--teal)] transition-colors">Contact</a>
+      </div>
+      <a href="#" class="m4-btn text-xs sm:text-sm">Ecouter <span>&rarr;</span></a>
+    </div>
+  </nav>
+
+  <!-- ========== HERO ========== -->
+  <section id="accueil" class="px-2 sm:px-4 md:px-8 pb-4">
+    <div class="m4-border-thick rounded-2xl relative overflow-hidden" style="background: var(--cream-dark);">
+      <!-- Starburst decorations -->
+      <div class="hidden sm:block absolute top-6 right-6 z-10">
+        <div class="m4-starburst m4-starburst-pink">
+          <span class="m4-mono text-white font-bold text-[0.55rem] relative z-10" style="font-size:0.55rem;">NEW</span>
+        </div>
+      </div>
+      <div class="hidden sm:block absolute bottom-24 left-6 z-10">
+        <div class="m4-starburst m4-starburst-orange">
+          <span class="m4-mono text-white font-bold relative z-10" style="font-size:0.55rem;">FM</span>
+        </div>
+      </div>
+      <div class="absolute top-4 left-1/3 z-10">
+        <div class="m4-starburst">
+          <span class="m4-mono text-white font-bold relative z-10" style="font-size:0.55rem;">EN DIRECT</span>
+        </div>
+      </div>
+
+      <div class="px-4 sm:px-8 md:px-12 py-10 sm:py-16 flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
+        <!-- Left -->
+        <div class="flex-1 text-center lg:text-left">
+          <h1 class="m4-mono font-bold hero-title leading-tight mb-4">La radio du Pays de Grasse</h1>
+          <p class="text-base sm:text-lg mb-6" style="color: var(--text-dim); max-width: 500px; margin-left: auto; margin-right: auto;">
+            Votre radio associative locale depuis 1982. Actualites, culture, musique et decouverte sur 87.7 FM et en ligne.
+          </p>
+          <div class="flex flex-wrap gap-3 justify-center lg:justify-start">
+            <a href="#" class="m4-btn">Ecouter <span>&rarr;</span></a>
+            <a href="#emissions" class="m4-btn-outline">Nos podcasts</a>
+          </div>
+        </div>
+        <!-- Right -->
+        <div class="flex-shrink-0">
+          <img src="logo-grassefm.jpg" alt="Agora Cote d'Azur" class="w-48 h-48 sm:w-64 sm:h-64 rounded-full object-cover m4-border-thick" style="box-shadow: 8px 8px 0px var(--border);" />
+        </div>
+      </div>
+
+      <!-- Feature cards -->
+      <div class="px-4 sm:px-8 md:px-12 pb-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="m4-feature">
+          <div class="text-3xl mb-2">&#128251;</div>
+          <div class="m4-mono font-bold text-lg">87,7 MHZ</div>
+          <div class="text-sm" style="color: var(--text-dim);">Frequence FM</div>
+        </div>
+        <div class="m4-feature">
+          <div class="text-3xl mb-2">&#127911;</div>
+          <div class="m4-mono font-bold text-lg">Multi-plateforme</div>
+          <div class="text-sm" style="color: var(--text-dim);">FM, Web, App</div>
+        </div>
+        <div class="m4-feature">
+          <div class="text-3xl mb-2">&#127908;</div>
+          <div class="m4-mono font-bold text-lg">20+ emissions</div>
+          <div class="text-sm" style="color: var(--text-dim);">Programmes varies</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== MARQUEE ========== -->
+  <div class="m4-marquee-wrap">
+    <div class="m4-marquee-track">
+      <span>Agora Cote d'Azur</span>
+      <span>87.7 FM</span>
+      <span>Radio associative</span>
+      <span>Pays de Grasse</span>
+      <span>En direct</span>
+      <span>Podcasts</span>
+      <span>Actualites</span>
+      <span>Culture</span>
+      <span>Musique</span>
+      <span>Agora Cote d'Azur</span>
+      <span>87.7 FM</span>
+      <span>Radio associative</span>
+      <span>Pays de Grasse</span>
+      <span>En direct</span>
+      <span>Podcasts</span>
+      <span>Actualites</span>
+      <span>Culture</span>
+      <span>Musique</span>
+    </div>
+  </div>
+
+  <!-- ========== ABOUT US ========== -->
+  <section class="px-4 sm:px-8 md:px-16 py-16 sm:py-24">
+    <h2 class="m4-mono font-bold text-2xl sm:text-3xl text-center mb-12">Qui sommes-nous ?</h2>
+    <div class="flex flex-col lg:flex-row items-center gap-10 max-w-5xl mx-auto">
+      <div class="flex-1 relative">
+        <img src="micro-agora.jpg" alt="Micro Agora" class="w-full rounded-3xl m4-border-thick object-cover" style="box-shadow: 8px 8px 0px var(--border); max-height: 400px;" />
+        <div class="absolute -bottom-4 -right-4 m4-starburst">
+          <span class="text-2xl relative z-10">&#128251;</span>
+        </div>
+      </div>
+      <div class="flex-1">
+        <p class="text-base sm:text-lg mb-4" style="color: var(--text-dim);">
+          Agora Cote d'Azur est une radio associative fondee en 1982, emettant sur 87.7 FM depuis le Pays de Grasse. Notre mission : informer, divertir et rassembler les habitants de la region a travers une programmation riche et variee.
+        </p>
+        <p class="text-base sm:text-lg mb-6" style="color: var(--text-dim);">
+          100% independante et sans publicite, notre radio est animee par des benevoles passionnes qui partagent chaque jour leur amour du territoire et de la culture locale.
+        </p>
+        <div class="flex flex-wrap gap-3">
+          <span class="m4-mono text-xs font-bold px-4 py-2 rounded-full" style="background: var(--mint); border: 2px solid var(--border);">&#128251; Depuis 1982</span>
+          <span class="m4-mono text-xs font-bold px-4 py-2 rounded-full" style="background: var(--mint); border: 2px solid var(--border);">&#128683; Sans publicite</span>
+          <span class="m4-mono text-xs font-bold px-4 py-2 rounded-full" style="background: var(--mint); border: 2px solid var(--border);">&#10084;&#65039; 100% associative</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PROGRAMS ========== -->
+  <section id="emissions" class="px-4 sm:px-8 md:px-16 py-16 sm:py-24" style="background: var(--cream-dark);">
+    <div class="text-center mb-10">
+      <h2 class="m4-mono font-bold text-2xl sm:text-3xl mb-3">Nos emissions</h2>
+      <p class="text-base" style="color: var(--text-dim);">Decouvrez toute notre programmation</p>
+    </div>
+
+    <!-- Filters -->
+    <div class="flex flex-wrap gap-2 justify-center mb-10" id="filters">
+      <button class="filter-pill active" data-filter="Tous">Tous</button>
+      <button class="filter-pill" data-filter="Actu">Actu</button>
+      <button class="filter-pill" data-filter="Culture">Culture</button>
+      <button class="filter-pill" data-filter="Musique">Musique</button>
+      <button class="filter-pill" data-filter="Gastro">Gastro</button>
+      <button class="filter-pill" data-filter="Écologie">Ecologie</button>
+      <button class="filter-pill" data-filter="Société">Societe</button>
+    </div>
+
+    <!-- Cards grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto" id="programs-grid">
+      <!-- Card 1: Reportages Actus -->
+      <div class="m4-card" data-category="Actu">
+        <div class="relative">
+          <img src="https://www.agoracotedazur.fr/wp-content/uploads/Reportages-actusoci%C3%A9t%C3%A9.jpg" alt="Reportages Actus" class="w-full h-44 object-cover" />
+          <span class="absolute top-3 left-3 m4-mono text-[0.65rem] font-bold px-3 py-1 rounded-full" style="background: var(--lavender); border: 2px solid var(--border);">Actu</span>
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-base mb-1">Reportages Actus</h3>
+          <p class="text-sm mb-3" style="color: var(--text-dim);">Au coeur de l'actualite locale.</p>
+          <div class="flex items-center justify-between">
+            <div class="flex gap-2">
+              <a href="#" class="w-7 h-7 rounded-full flex items-center justify-center" style="background: #1DB954;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2z"/></svg>
+              </a>
+              <a href="#" class="w-7 h-7 rounded-full flex items-center justify-center" style="background: #FF0092;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M18.81 4.16v3.03H24V4.16h-5.19zM6.27 8.38v3.027h5.19V8.38H6.27zm12.54 0v3.027H24V8.38h-5.19zM6.27 12.594v3.027h5.19v-3.027H6.27zm6.27 0v3.027h5.19v-3.027h-5.19zm6.27 0v3.027H24v-3.027h-5.19zM0 16.81v3.029h5.19v-3.03H0zm6.27 0v3.029h5.19v-3.03H6.27zm6.27 0v3.029h5.19v-3.03h-5.19zm6.27 0v3.029H24v-3.03h-5.19z"/></svg>
+              </a>
+              <a href="#" class="w-7 h-7 rounded-full flex items-center justify-center" style="background: #FF0000;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+              </a>
+            </div>
+            <button class="w-10 h-10 rounded-full flex items-center justify-center m4-border" style="background: var(--mint);" aria-label="Play">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--black)"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2: Cine Passion -->
+      <div class="m4-card" data-category="Culture">
+        <div class="relative">
+          <img src="https://www.agoracotedazur.fr/wp-content/uploads/Cine-passion-1.jpg" alt="Cine Passion" class="w-full h-44 object-cover" />
+          <span class="absolute top-3 left-3 m4-mono text-[0.65rem] font-bold px-3 py-1 rounded-full" style="background: var(--lavender-light); border: 2px solid var(--border);">Culture</span>
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-base mb-1">Cine Passion</h3>
+          <p class="text-sm mb-3" style="color: var(--text-dim);">Critiques cinema avec Pascal Gaymard.</p>
+          <div class="flex items-center justify-between">
+            <div class="flex gap-2">
+              <a href="#" class="w-7 h-7 rounded-full flex items-center justify-center" style="background: #1DB954;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2z"/></svg>
+              </a>
+              <a href="#" class="w-7 h-7 rounded-full flex items-center justify-center" style="background: #FF0092;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M18.81 4.16v3.03H24V4.16h-5.19zM6.27 8.38v3.027h5.19V8.38H6.27zm12.54 0v3.027H24V8.38h-5.19zM6.27 12.594v3.027h5.19v-3.027H6.27zm6.27 0v3.027h5.19v-3.027h-5.19zm6.27 0v3.027H24v-3.027h-5.19zM0 16.81v3.029h5.19v-3.03H0zm6.27 0v3.029h5.19v-3.03H6.27zm6.27 0v3.029h5.19v-3.03h-5.19zm6.27 0v3.029H24v-3.03h-5.19z"/></svg>
+              </a>
+              <a href="#" class="w-7 h-7 rounded-full flex items-center justify-center" style="background: #FF0000;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+              </a>
+            </div>
+            <button class="w-10 h-10 rounded-full flex items-center justify-center m4-border" style="background: var(--mint);" aria-label="Play">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--black)"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3: La Boite de Jazz -->
+      <div class="m4-card" data-category="Musique">
+        <div class="relative">
+          <img src="https://www.agoracotedazur.fr/wp-content/uploads/elementor/thumbs/La-boite-de-Jazz-r03whyvg48wm9fxk48bbaxaw3zd00h5ebdn2bqffiw.jpg" alt="La Boite de Jazz" class="w-full h-44 object-cover" />
+          <span class="absolute top-3 left-3 m4-mono text-[0.65rem] font-bold px-3 py-1 rounded-full" style="background: var(--mint); border: 2px solid var(--border);">Musique</span>
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-base mb-1">La Boite de Jazz</h3>
+          <p class="text-sm mb-3" style="color: var(--text-dim);">Les plus belles pepites jazz.</p>
+          <div class="flex items-center justify-between">
+            <div class="flex gap-2">
+              <a href="#" class="w-7 h-7 rounded-full flex items-center justify-center" style="background: #1DB954;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2z"/></svg>
+              </a>
+              <a href="#" class="w-7 h-7 rounded-full flex items-center justify-center" style="background: #FF0092;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M18.81 4.16v3.03H24V4.16h-5.19zM6.27 8.38v3.027h5.19V8.38H6.27zm12.54 0v3.027H24V8.38h-5.19zM6.27 12.594v3.027h5.19v-3.027H6.27zm6.27 0v3.027h5.19v-3.027h-5.19zm6.27 0v3.027H24v-3.027h-5.19zM0 16.81v3.029h5.19v-3.03H0zm6.27 0v3.029h5.19v-3.03H6.27zm6.27 0v3.029h5.19v-3.03h-5.19zm6.27 0v3.029H24v-3.03h-5.19z"/></svg>
+              </a>
+              <a href="#" class="w-7 h-7 rounded-full flex items-center justify-center" style="background: #FF0000;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+              </a>
+            </div>
+            <button class="w-10 h-10 rounded-full flex items-center justify-center m4-border" style="background: var(--mint);" aria-label="Play">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--black)"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4: Le Bonheur est dans la Poele -->
+      <div class="m4-card" data-category="Gastro">
+        <div class="relative">
+          <img src="https://www.agoracotedazur.fr/wp-content/uploads/Le-bonheur-est-dans-la-poele.jpg" alt="Le Bonheur est dans la Poele" class="w-full h-44 object-cover" />
+          <span class="absolute top-3 left-3 m4-mono text-[0.65rem] font-bold px-3 py-1 rounded-full" style="background: var(--orange); border: 2px solid var(--border);">Gastro</span>
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-base mb-1">Le Bonheur est dans la Poele</h3>
+          <p class="text-sm mb-3" style="color: var(--text-dim);">Recettes provencales et chefs.</p>
+          <div class="flex items-center justify-between">
+            <div class="flex gap-2">
+              <a href="#" class="w-7 h-7 rounded-full flex items-center justify-center" style="background: #1DB954;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2z"/></svg>
+              </a>
+              <a href="#" class="w-7 h-7 rounded-full flex items-center justify-center" style="background: #FF0092;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M18.81 4.16v3.03H24V4.16h-5.19zM6.27 8.38v3.027h5.19V8.38H6.27zm12.54 0v3.027H24V8.38h-5.19zM6.27 12.594v3.027h5.19v-3.027H6.27zm6.27 0v3.027h5.19v-3.027h-5.19zm6.27 0v3.027H24v-3.027h-5.19zM0 16.81v3.029h5.19v-3.03H0zm6.27 0v3.029h5.19v-3.03H6.27zm6.27 0v3.029h5.19v-3.03h-5.19zm6.27 0v3.029H24v-3.03h-5.19z"/></svg>
+              </a>
+              <a href="#" class="w-7 h-7 rounded-full flex items-center justify-center" style="background: #FF0000;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+              </a>
+            </div>
+            <button class="w-10 h-10 rounded-full flex items-center justify-center m4-border" style="background: var(--mint);" aria-label="Play">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--black)"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 5: La Chronique Ecolo -->
+      <div class="m4-card" data-category="Écologie">
+        <div class="relative">
+          <img src="https://www.agoracotedazur.fr/wp-content/uploads/La-chronique-ecolo.jpg" alt="La Chronique Ecolo" class="w-full h-44 object-cover" />
+          <span class="absolute top-3 left-3 m4-mono text-[0.65rem] font-bold px-3 py-1 rounded-full" style="background: var(--mint); border: 2px solid var(--border);">Ecologie</span>
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-base mb-1">La Chronique Ecolo</h3>
+          <p class="text-sm mb-3" style="color: var(--text-dim);">Biodiversite mediterraneenne.</p>
+          <div class="flex items-center justify-between">
+            <div class="flex gap-2">
+              <a href="#" class="w-7 h-7 rounded-full flex items-center justify-center" style="background: #1DB954;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2z"/></svg>
+              </a>
+              <a href="#" class="w-7 h-7 rounded-full flex items-center justify-center" style="background: #FF0092;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M18.81 4.16v3.03H24V4.16h-5.19zM6.27 8.38v3.027h5.19V8.38H6.27zm12.54 0v3.027H24V8.38h-5.19zM6.27 12.594v3.027h5.19v-3.027H6.27zm6.27 0v3.027h5.19v-3.027h-5.19zm6.27 0v3.027H24v-3.027h-5.19zM0 16.81v3.029h5.19v-3.03H0zm6.27 0v3.029h5.19v-3.03H6.27zm6.27 0v3.029h5.19v-3.03h-5.19zm6.27 0v3.029H24v-3.03h-5.19z"/></svg>
+              </a>
+              <a href="#" class="w-7 h-7 rounded-full flex items-center justify-center" style="background: #FF0000;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+              </a>
+            </div>
+            <button class="w-10 h-10 rounded-full flex items-center justify-center m4-border" style="background: var(--mint);" aria-label="Play">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--black)"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 6: L'Artiste du Jour -->
+      <div class="m4-card" data-category="Musique">
+        <div class="relative">
+          <img src="https://www.agoracotedazur.fr/wp-content/uploads/elementor/thumbs/L-artiste-du-jour-r25zw7f1d1l360gqc3m1n1dz1m9cwanm14imejdaoo.jpg" alt="L'Artiste du Jour" class="w-full h-44 object-cover" />
+          <span class="absolute top-3 left-3 m4-mono text-[0.65rem] font-bold px-3 py-1 rounded-full" style="background: var(--mint); border: 2px solid var(--border);">Musique</span>
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-base mb-1">L'Artiste du Jour</h3>
+          <p class="text-sm mb-3" style="color: var(--text-dim);">Decouverte musicale quotidienne.</p>
+          <div class="flex items-center justify-between">
+            <div class="flex gap-2">
+              <a href="#" class="w-7 h-7 rounded-full flex items-center justify-center" style="background: #1DB954;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2z"/></svg>
+              </a>
+              <a href="#" class="w-7 h-7 rounded-full flex items-center justify-center" style="background: #FF0092;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M18.81 4.16v3.03H24V4.16h-5.19zM6.27 8.38v3.027h5.19V8.38H6.27zm12.54 0v3.027H24V8.38h-5.19zM6.27 12.594v3.027h5.19v-3.027H6.27zm6.27 0v3.027h5.19v-3.027h-5.19zm6.27 0v3.027H24v-3.027h-5.19zM0 16.81v3.029h5.19v-3.03H0zm6.27 0v3.029h5.19v-3.03H6.27zm6.27 0v3.029h5.19v-3.03h-5.19zm6.27 0v3.029H24v-3.03h-5.19z"/></svg>
+              </a>
+              <a href="#" class="w-7 h-7 rounded-full flex items-center justify-center" style="background: #FF0000;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+              </a>
+            </div>
+            <button class="w-10 h-10 rounded-full flex items-center justify-center m4-border" style="background: var(--mint);" aria-label="Play">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--black)"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 7: Alter Regard -->
+      <div class="m4-card" data-category="Société">
+        <div class="relative">
+          <img src="https://www.agoracotedazur.fr/wp-content/uploads/Alter-regard.jpg" alt="Alter Regard" class="w-full h-44 object-cover" />
+          <span class="absolute top-3 left-3 m4-mono text-[0.65rem] font-bold px-3 py-1 rounded-full" style="background: var(--coral); border: 2px solid var(--border);">Societe</span>
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-base mb-1">Alter Regard</h3>
+          <p class="text-sm mb-3" style="color: var(--text-dim);">Un autre regard sur la societe.</p>
+          <div class="flex items-center justify-between">
+            <div class="flex gap-2">
+              <a href="#" class="w-7 h-7 rounded-full flex items-center justify-center" style="background: #1DB954;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2z"/></svg>
+              </a>
+              <a href="#" class="w-7 h-7 rounded-full flex items-center justify-center" style="background: #FF0092;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M18.81 4.16v3.03H24V4.16h-5.19zM6.27 8.38v3.027h5.19V8.38H6.27zm12.54 0v3.027H24V8.38h-5.19zM6.27 12.594v3.027h5.19v-3.027H6.27zm6.27 0v3.027h5.19v-3.027h-5.19zm6.27 0v3.027H24v-3.027h-5.19zM0 16.81v3.029h5.19v-3.03H0zm6.27 0v3.029h5.19v-3.03H6.27zm6.27 0v3.029h5.19v-3.03h-5.19zm6.27 0v3.029H24v-3.03h-5.19z"/></svg>
+              </a>
+              <a href="#" class="w-7 h-7 rounded-full flex items-center justify-center" style="background: #FF0000;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+              </a>
+            </div>
+            <button class="w-10 h-10 rounded-full flex items-center justify-center m4-border" style="background: var(--mint);" aria-label="Play">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--black)"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 8: Scene Regionale -->
+      <div class="m4-card" data-category="Musique">
+        <div class="relative">
+          <img src="https://www.agoracotedazur.fr/wp-content/uploads/Sc%C3%A8ne-r%C3%A9gionale-1.jpg" alt="Scene Regionale" class="w-full h-44 object-cover" />
+          <span class="absolute top-3 left-3 m4-mono text-[0.65rem] font-bold px-3 py-1 rounded-full" style="background: var(--mint); border: 2px solid var(--border);">Musique</span>
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-base mb-1">Scene Regionale</h3>
+          <p class="text-sm mb-3" style="color: var(--text-dim);">La scene musicale locale.</p>
+          <div class="flex items-center justify-between">
+            <div class="flex gap-2">
+              <a href="#" class="w-7 h-7 rounded-full flex items-center justify-center" style="background: #1DB954;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2z"/></svg>
+              </a>
+              <a href="#" class="w-7 h-7 rounded-full flex items-center justify-center" style="background: #FF0092;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M18.81 4.16v3.03H24V4.16h-5.19zM6.27 8.38v3.027h5.19V8.38H6.27zm12.54 0v3.027H24V8.38h-5.19zM6.27 12.594v3.027h5.19v-3.027H6.27zm6.27 0v3.027h5.19v-3.027h-5.19zm6.27 0v3.027H24v-3.027h-5.19zM0 16.81v3.029h5.19v-3.03H0zm6.27 0v3.029h5.19v-3.03H6.27zm6.27 0v3.029h5.19v-3.03h-5.19zm6.27 0v3.029H24v-3.03h-5.19z"/></svg>
+              </a>
+              <a href="#" class="w-7 h-7 rounded-full flex items-center justify-center" style="background: #FF0000;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+              </a>
+            </div>
+            <button class="w-10 h-10 rounded-full flex items-center justify-center m4-border" style="background: var(--mint);" aria-label="Play">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--black)"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========== RADIO ASSOCIATIVE ========== -->
+  <section class="px-4 sm:px-8 md:px-16 py-16 sm:py-24 relative overflow-hidden">
+    <!-- Starburst decorations -->
+    <div class="hidden sm:block absolute top-12 right-12 z-0">
+      <div class="m4-starburst m4-starburst-pink">
+        <span class="text-white font-bold relative z-10" style="font-size:0.55rem;">&#9733;</span>
+      </div>
+    </div>
+    <div class="hidden sm:block absolute bottom-12 left-12 z-0">
+      <div class="m4-starburst m4-starburst-orange">
+        <span class="text-white font-bold relative z-10" style="font-size:0.55rem;">&#9733;</span>
+      </div>
+    </div>
+
+    <div class="flex flex-col lg:flex-row items-center gap-10 max-w-5xl mx-auto relative z-10">
+      <div class="flex-1 relative">
+        <img src="https://www.agoracotedazur.fr/wp-content/uploads/Reportages.jpg" alt="Reportages" class="w-full rounded-3xl m4-border-thick object-cover" style="box-shadow: 8px 8px 0px var(--border); max-height: 400px;" />
+        <div class="absolute -bottom-4 -right-4 m4-starburst">
+          <span class="text-2xl relative z-10">&#128251;</span>
+        </div>
+      </div>
+      <div class="flex-1">
+        <h2 class="m4-mono font-bold text-2xl sm:text-3xl mb-4">La radio associative</h2>
+        <p class="text-base sm:text-lg mb-4" style="color: var(--text-dim);">
+          Depuis plus de 40 ans, Agora Cote d'Azur porte la voix des habitants du Pays de Grasse. Radio de proximite, nous donnons la parole a ceux qui font vivre notre territoire au quotidien.
+        </p>
+        <p class="text-base sm:text-lg mb-6" style="color: var(--text-dim);">
+          Nos benevoles passionnes produisent chaque semaine plus de 20 emissions originales couvrant l'actualite, la culture, la musique, la gastronomie et l'ecologie.
+        </p>
+        <a href="#" class="m4-btn">Decouvrir <span>&rarr;</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CONTACT ========== -->
+  <section id="contact" class="px-4 sm:px-8 md:px-16 py-16 sm:py-24" style="background: var(--cream-dark);">
+    <h2 class="m4-mono font-bold text-2xl sm:text-3xl text-center mb-10">Contactez-nous</h2>
+    <div class="max-w-2xl mx-auto m4-border-thick rounded-3xl bg-white p-6 sm:p-10" style="box-shadow: 8px 8px 0px var(--border);">
+      <form id="contact-form">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+          <div>
+            <label class="m4-mono text-xs font-bold block mb-2">Nom</label>
+            <input type="text" placeholder="Votre nom" required class="w-full px-4 py-3 rounded-xl text-sm" style="border: 2px solid var(--border); transition: box-shadow 0.25s ease;" />
+          </div>
+          <div>
+            <label class="m4-mono text-xs font-bold block mb-2">Email</label>
+            <input type="email" placeholder="votre@email.fr" required class="w-full px-4 py-3 rounded-xl text-sm" style="border: 2px solid var(--border); transition: box-shadow 0.25s ease;" />
+          </div>
+        </div>
+        <div class="mb-4">
+          <label class="m4-mono text-xs font-bold block mb-2">Sujet</label>
+          <input type="text" placeholder="Sujet de votre message" required class="w-full px-4 py-3 rounded-xl text-sm" style="border: 2px solid var(--border); transition: box-shadow 0.25s ease;" />
+        </div>
+        <div class="mb-6">
+          <label class="m4-mono text-xs font-bold block mb-2">Message</label>
+          <textarea rows="5" placeholder="Votre message..." required class="w-full px-4 py-3 rounded-xl text-sm resize-none" style="border: 2px solid var(--border); transition: box-shadow 0.25s ease;"></textarea>
+        </div>
+        <button type="submit" class="m4-btn w-full justify-center">Envoyer <span>&rarr;</span></button>
+      </form>
+      <div id="contact-success" class="hidden text-center py-8">
+        <div class="text-4xl mb-3">&#9989;</div>
+        <p class="m4-mono font-bold text-lg mb-1">Message envoye !</p>
+        <p class="text-sm" style="color: var(--text-dim);">Nous vous repondrons dans les plus brefs delais.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="px-2 sm:px-4 md:px-8 pb-6 sm:pb-8 pt-6">
+    <div class="m4-border-thick rounded-2xl p-6 sm:p-10" style="background: var(--black); color: var(--cream);">
+      <div class="flex flex-col lg:flex-row gap-10 mb-8">
+        <div class="flex-1">
+          <div class="flex items-center gap-3 mb-3">
+            <img src="logo-grassefm.jpg" alt="Agora Cote d'Azur" class="w-10 h-10 rounded-full object-cover" />
+            <span class="m4-mono font-bold text-base" style="color: var(--cream);">Agora Cote d'Azur</span>
+          </div>
+          <p class="text-sm" style="color: var(--text-dim);">Votre radio associative locale depuis 1982. Emettant sur 87.7 FM depuis le Pays de Grasse.</p>
+        </div>
+        <div class="flex gap-12">
+          <div>
+            <h4 class="m4-mono font-bold text-xs mb-3" style="color: var(--mint);">Radio</h4>
+            <ul class="space-y-2">
+              <li><a href="#accueil" class="text-sm hover:underline" style="color: var(--cream);">Accueil</a></li>
+              <li><a href="#emissions" class="text-sm hover:underline" style="color: var(--cream);">Podcasts</a></li>
+              <li><a href="#emissions" class="text-sm hover:underline" style="color: var(--cream);">Emissions</a></li>
+              <li><a href="#" class="text-sm hover:underline" style="color: var(--cream);">Grille</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="m4-mono font-bold text-xs mb-3" style="color: var(--mint);">Contact</h4>
+            <ul class="space-y-2">
+              <li><a href="#contact" class="text-sm hover:underline" style="color: var(--cream);">Nous ecrire</a></li>
+              <li><a href="#" class="text-sm hover:underline" style="color: var(--cream);">Instagram</a></li>
+              <li><a href="#" class="text-sm hover:underline" style="color: var(--cream);">TikTok</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-gray-700 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <p class="text-xs" style="color: var(--text-dim);">&copy; 2024 Agora Cote d'Azur. Tous droits reserves.</p>
+        <a href="#" class="text-xs hover:underline" style="color: var(--text-dim);">Mentions legales</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========== MINI PLAYER ========== -->
+  <div class="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 px-5 py-3 rounded-full m4-border-thick bg-white" style="box-shadow: 0 8px 30px rgba(0,0,0,0.15);">
+    <div class="w-3 h-3 rounded-full" style="background: var(--coral); animation: m4-pulse 2s ease-in-out infinite;"></div>
+    <span class="m4-mono font-bold text-xs" style="color: var(--coral);">LIVE</span>
+    <span class="text-sm font-medium hidden sm:inline">Reportages Actus</span>
+    <button class="w-10 h-10 rounded-full flex items-center justify-center m4-border" style="background: var(--mint);" aria-label="Play" id="mini-play-btn">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--black)"><path d="M8 5v14l11-7z"/></svg>
+    </button>
+  </div>
+
+  <!-- ========== MAQUETTE SWITCHER ========== -->
+  <div class="fixed top-1/2 -translate-y-1/2 right-4 z-50 flex flex-col gap-2 p-2 rounded-xl" style="background: rgba(255,255,255,0.7); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.3);">
+    <a href="index.html" class="w-9 h-9 rounded-lg flex items-center justify-center text-xs font-bold" style="background: rgba(255,255,255,0.5); color: var(--black); border: 1px solid rgba(0,0,0,0.1); text-decoration: none;">1</a>
+    <a href="retro.html" class="w-9 h-9 rounded-lg flex items-center justify-center text-xs font-bold" style="background: rgba(255,255,255,0.5); color: var(--black); border: 1px solid rgba(0,0,0,0.1); text-decoration: none;">2</a>
+    <a href="vintage.html" class="w-9 h-9 rounded-lg flex items-center justify-center text-xs font-bold" style="background: #A8D8B8; color: var(--black); border: 2px solid var(--black); text-decoration: none;">3</a>
+  </div>
+
+  <!-- ========== VANILLA JS ========== -->
+  <script>
+    // Filter functionality
+    const filterBtns = document.querySelectorAll('#filters .filter-pill');
+    const cards = document.querySelectorAll('#programs-grid .m4-card');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Update active state
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const filter = btn.getAttribute('data-filter');
+
+        cards.forEach(card => {
+          const category = card.getAttribute('data-category');
+          if (filter === 'Tous' || category === filter) {
+            card.style.display = '';
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(10px)';
+            requestAnimationFrame(() => {
+              card.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+              card.style.opacity = '1';
+              card.style.transform = 'translateY(0)';
+            });
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // Contact form
+    const contactForm = document.getElementById('contact-form');
+    const contactSuccess = document.getElementById('contact-success');
+
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      contactForm.style.display = 'none';
+      contactSuccess.classList.remove('hidden');
+    });
+
+    // Mini player toggle
+    const miniPlayBtn = document.getElementById('mini-play-btn');
+    let isPlaying = false;
+
+    miniPlayBtn.addEventListener('click', () => {
+      isPlaying = !isPlaying;
+      if (isPlaying) {
+        miniPlayBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="var(--black)"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>';
+      } else {
+        miniPlayBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="var(--black)"><path d="M8 5v14l11-7z"/></svg>';
+      }
+    });
+  </script>
+
+</body>
+</html>

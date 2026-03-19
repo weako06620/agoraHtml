@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agora Cote d'Azur — Retro</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,700&family=DM+Sans:wght@400;500;700&display=swap');
+
+    .m2-hero-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    body {
+      --brown: #FDF5EC;
+      --brown-light: #F5E8D8;
+      --cream: #FFFFFF;
+      --cream-dark: #F0E4D4;
+      --coral: #2B45A8;
+      --coral-light: #3A58C2;
+      --red-accent: #D63535;
+      --red-soft: #C42E2E;
+      --text-light: #2A2A2A;
+      --text-dark: #1A1A2E;
+      --text-dim: #8A7E74;
+
+      background: var(--brown);
+      color: var(--text-light);
+      font-family: 'DM Sans', system-ui, sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+      margin: 0;
+    }
+
+    .m2-display {
+      font-family: 'Fraunces', Georgia, serif;
+      font-optical-sizing: auto;
+    }
+
+    .m2-marquee-wrap {
+      background: var(--red-accent);
+      overflow: hidden;
+      white-space: nowrap;
+      padding: 14px 0;
+    }
+
+    .m2-marquee-track {
+      display: inline-flex;
+      animation: m2-scroll 20s linear infinite;
+    }
+
+    .m2-marquee-track span {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 0.04em;
+      color: #FFFFFF;
+      padding: 0 2rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .m2-marquee-track span::after {
+      content: '\2726';
+      font-size: 0.7rem;
+    }
+
+    @keyframes m2-scroll {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    @keyframes marquee-scroll {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    @keyframes spin-vinyl {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .m2-fade-up {
+      animation: m2-fade-up 0.8s ease-out both;
+    }
+
+    @keyframes m2-fade-up {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .m2-btn {
+      background: var(--red-accent);
+      color: #FFFFFF;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      border: none;
+      border-radius: 50px;
+      padding: 14px 36px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      letter-spacing: 0.02em;
+      min-height: 44px;
+    }
+
+    @media (max-width: 640px) {
+      .m2-btn { padding: 12px 24px; font-size: 0.9rem; }
+    }
+
+    .m2-btn:hover {
+      background: var(--red-soft);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(214, 53, 53, 0.25);
+    }
+
+    .m2-btn-outline {
+      background: transparent;
+      color: var(--text-dark);
+      border: 2px solid rgba(0, 0, 0, 0.15);
+      border-radius: 50px;
+      padding: 12px 32px;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      min-height: 44px;
+    }
+
+    @media (max-width: 640px) {
+      .m2-btn-outline { padding: 10px 22px; font-size: 0.9rem; }
+    }
+
+    .m2-btn-outline:hover {
+      border-color: var(--red-accent);
+      color: var(--red-accent);
+    }
+
+    .m2-live-dot {
+      width: 10px;
+      height: 10px;
+      background: #E05040;
+      border-radius: 50%;
+      animation: m2-pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes m2-pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(224, 80, 64, 0.5); }
+      50% { box-shadow: 0 0 0 8px rgba(224, 80, 64, 0); }
+    }
+
+    .m2-eq-bar {
+      animation: m2-eq 1s ease-in-out infinite alternate;
+    }
+
+    @keyframes m2-eq {
+      0% { height: 4px; }
+      100% { height: 16px; }
+    }
+
+    .scrollbar-hide {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .scrollbar-hide::-webkit-scrollbar { display: none; }
+
+    @media (max-width: 640px) {
+      .m2-marquee-track span { font-size: 0.8rem; padding: 0 1.2rem; }
+      .m2-marquee-wrap { padding: 10px 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========== NAVBAR ========== -->
+  <nav id="navbar" style="background: rgba(253,245,236,0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);" class="fixed top-0 left-0 right-0 z-50 border-b border-black/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+      <!-- Logo -->
+      <a href="#" class="m2-display text-2xl font-bold" style="color: var(--text-dark);">
+        Agora<span style="color: var(--red-accent);">CA</span>
+      </a>
+      <!-- Links -->
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#hero" class="text-sm font-medium hover:opacity-70 transition" style="color: var(--text-light);">Accueil</a>
+        <a href="#programs" class="text-sm font-medium hover:opacity-70 transition" style="color: var(--text-light);">Podcasts</a>
+        <a href="#contact" class="text-sm font-medium hover:opacity-70 transition" style="color: var(--text-light);">Contact</a>
+      </div>
+      <div class="flex items-center gap-4">
+        <!-- EN DIRECT -->
+        <div class="hidden md:flex items-center gap-2">
+          <div class="m2-live-dot"></div>
+          <span class="text-xs font-bold uppercase tracking-wider" style="color: var(--red-accent);">En direct</span>
+        </div>
+        <button class="m2-btn text-sm" onclick="document.getElementById('hero').scrollIntoView({behavior:'smooth'})">Ecouter</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ========== HERO ========== -->
+  <section id="hero" class="relative pt-24 sm:pt-28 pb-16 sm:pb-20 overflow-hidden" style="background: var(--brown);">
+    <!-- Radial glow -->
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full opacity-10" style="background: radial-gradient(circle, var(--coral) 0%, transparent 70%);"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
+        <!-- Text -->
+        <div class="flex-1 text-center lg:text-left m2-fade-up">
+          <p class="text-sm sm:text-base font-medium tracking-wider uppercase mb-4 sm:mb-6" style="color: var(--text-dim);">La radio du Pays de Grasse &mdash; 87,7 MHZ</p>
+          <h1 class="m2-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-[0.95] mb-8">
+            <span style="color: var(--red-accent); font-size: 1.15em;">E</span><span style="color: var(--text-dark);">coutez</span><br/>
+            <em style="color: var(--red-accent);">agora</em><br/>
+            <span style="color: var(--coral);">cote d'azur</span>
+          </h1>
+          <div class="flex flex-wrap gap-4 justify-center lg:justify-start">
+            <button class="m2-btn">Lancer le direct</button>
+            <button class="m2-btn-outline" onclick="document.getElementById('programs').scrollIntoView({behavior:'smooth'})">Nos podcasts</button>
+          </div>
+        </div>
+        <!-- Vinyl -->
+        <div class="flex-shrink-0 m2-fade-up" style="animation-delay: 0.2s;">
+          <svg viewBox="0 0 400 400" class="w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96" style="animation: spin-vinyl 12s linear infinite;">
+            <!-- Disc -->
+            <circle cx="200" cy="200" r="198" fill="#1A1A1A"/>
+            <circle cx="200" cy="200" r="196" fill="#222"/>
+            <!-- Grooves -->
+            <circle cx="200" cy="200" r="80" fill="none" stroke="#333" stroke-width="0.5" opacity="0.5"/>
+            <circle cx="200" cy="200" r="87" fill="none" stroke="#333" stroke-width="0.5" opacity="0.5"/>
+            <circle cx="200" cy="200" r="94" fill="none" stroke="#333" stroke-width="0.5" opacity="0.5"/>
+            <circle cx="200" cy="200" r="101" fill="none" stroke="#333" stroke-width="0.5" opacity="0.5"/>
+            <circle cx="200" cy="200" r="108" fill="none" stroke="#333" stroke-width="0.5" opacity="0.5"/>
+            <circle cx="200" cy="200" r="115" fill="none" stroke="#333" stroke-width="0.5" opacity="0.5"/>
+            <circle cx="200" cy="200" r="122" fill="none" stroke="#333" stroke-width="0.5" opacity="0.5"/>
+            <circle cx="200" cy="200" r="129" fill="none" stroke="#333" stroke-width="0.5" opacity="0.5"/>
+            <circle cx="200" cy="200" r="136" fill="none" stroke="#333" stroke-width="0.5" opacity="0.5"/>
+            <circle cx="200" cy="200" r="143" fill="none" stroke="#333" stroke-width="0.5" opacity="0.5"/>
+            <circle cx="200" cy="200" r="150" fill="none" stroke="#333" stroke-width="0.5" opacity="0.5"/>
+            <circle cx="200" cy="200" r="157" fill="none" stroke="#333" stroke-width="0.5" opacity="0.5"/>
+            <circle cx="200" cy="200" r="164" fill="none" stroke="#333" stroke-width="0.5" opacity="0.5"/>
+            <circle cx="200" cy="200" r="171" fill="none" stroke="#333" stroke-width="0.5" opacity="0.5"/>
+            <circle cx="200" cy="200" r="178" fill="none" stroke="#333" stroke-width="0.5" opacity="0.5"/>
+            <circle cx="200" cy="200" r="185" fill="none" stroke="#333" stroke-width="0.5" opacity="0.5"/>
+            <circle cx="200" cy="200" r="192" fill="none" stroke="#333" stroke-width="0.5" opacity="0.5"/>
+            <circle cx="200" cy="200" r="196" fill="none" stroke="#333" stroke-width="0.5" opacity="0.5"/>
+            <!-- Red label -->
+            <circle cx="200" cy="200" r="78" fill="#D63535"/>
+            <!-- Logo clipped -->
+            <clipPath id="logoClip">
+              <circle cx="200" cy="200" r="60"/>
+            </clipPath>
+            <image href="/logo-grassefm.jpg" x="140" y="140" width="120" height="120" clip-path="url(#logoClip)" preserveAspectRatio="xMidYMid slice"/>
+            <!-- Center hole -->
+            <circle cx="200" cy="200" r="8" fill="#1A1A1A"/>
+            <circle cx="200" cy="200" r="4" fill="#333"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== MARQUEE ========== -->
+  <div class="m2-marquee-wrap">
+    <div class="m2-marquee-track">
+      <span>87,7 MHZ</span>
+      <span>Culture</span>
+      <span>Musique</span>
+      <span>Info locale</span>
+      <span>Podcasts</span>
+      <span>En direct</span>
+      <span>Pays de Grasse</span>
+      <span>Jazz</span>
+      <span>Actu</span>
+      <span>Sport</span>
+      <span>Gastronomie</span>
+      <span>Environnement</span>
+      <span>87,7 MHZ</span>
+      <span>Culture</span>
+      <span>Musique</span>
+      <span>Info locale</span>
+      <span>Podcasts</span>
+      <span>En direct</span>
+      <span>Pays de Grasse</span>
+      <span>Jazz</span>
+      <span>Actu</span>
+      <span>Sport</span>
+      <span>Gastronomie</span>
+      <span>Environnement</span>
+    </div>
+  </div>
+
+  <!-- ========== ABOUT US ========== -->
+  <section id="about" class="py-20 sm:py-28" style="background: var(--cream);">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+        <!-- Image -->
+        <div class="flex-1 w-full">
+          <img src="micro-agora.jpg" alt="Micro Agora Cote d'Azur" class="w-full rounded-3xl shadow-2xl object-cover" style="max-height: 500px;" />
+        </div>
+        <!-- Text -->
+        <div class="flex-1">
+          <h2 class="m2-display text-4xl sm:text-5xl font-bold mb-8" style="color: var(--text-dark);">
+            qui sommes <em style="color: var(--red-accent);">nous ?</em>
+          </h2>
+          <p class="text-base sm:text-lg leading-relaxed mb-4" style="color: var(--text-light);">
+            Agora Cote d'Azur est une radio associative independante qui emet depuis le Pays de Grasse sur le 87,7 FM. Depuis 1982, nous portons les voix du territoire a travers des emissions culturelles, musicales et citoyennes.
+          </p>
+          <p class="text-base sm:text-lg leading-relaxed mb-10" style="color: var(--text-dim);">
+            Sans publicite et portee par des benevoles passionnes, notre radio est un espace de liberte editoriale unique, au service de la diversite et du lien social sur la Cote d'Azur.
+          </p>
+          <!-- Stats -->
+          <div class="grid grid-cols-3 gap-6">
+            <div class="text-center">
+              <div class="m2-display text-4xl sm:text-5xl font-bold" style="color: var(--red-accent);">1982</div>
+              <div class="text-sm mt-1" style="color: var(--text-dim);">Depuis</div>
+            </div>
+            <div class="text-center">
+              <div class="m2-display text-4xl sm:text-5xl font-bold" style="color: var(--red-accent);">40+</div>
+              <div class="text-sm mt-1" style="color: var(--text-dim);">Ans d'antenne</div>
+            </div>
+            <div class="text-center">
+              <div class="m2-display text-4xl sm:text-5xl font-bold" style="color: var(--red-accent);">0</div>
+              <div class="text-sm mt-1" style="color: var(--text-dim);">Publicite</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PROGRAMS ========== -->
+  <section id="programs" class="py-20 sm:py-28" style="background: var(--cream-dark);">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="m2-display text-4xl sm:text-5xl font-bold text-center mb-12" style="color: var(--text-dark);">
+        nos emissions &amp; <em style="color: var(--red-accent);">podcasts</em>
+      </h2>
+
+      <!-- Filter pills -->
+      <div class="flex gap-3 mb-10 overflow-x-auto scrollbar-hide pb-2" id="filterContainer">
+        <button class="filter-pill active whitespace-nowrap px-5 py-2.5 rounded-full text-sm font-bold transition-all" data-category="all" onclick="filterPrograms('all')">Tous &#127897;</button>
+        <button class="filter-pill whitespace-nowrap px-5 py-2.5 rounded-full text-sm font-bold transition-all" data-category="Actu & Société" onclick="filterPrograms('Actu & Société')">Actu &amp; Societe &#128240;</button>
+        <button class="filter-pill whitespace-nowrap px-5 py-2.5 rounded-full text-sm font-bold transition-all" data-category="Culture" onclick="filterPrograms('Culture')">Culture &#127916;</button>
+        <button class="filter-pill whitespace-nowrap px-5 py-2.5 rounded-full text-sm font-bold transition-all" data-category="Musique" onclick="filterPrograms('Musique')">Musique &#127927;</button>
+        <button class="filter-pill whitespace-nowrap px-5 py-2.5 rounded-full text-sm font-bold transition-all" data-category="Sport" onclick="filterPrograms('Sport')">Sport &#9917;</button>
+        <button class="filter-pill whitespace-nowrap px-5 py-2.5 rounded-full text-sm font-bold transition-all" data-category="Science & Tech" onclick="filterPrograms('Science & Tech')">Science &amp; Tech &#128300;</button>
+        <button class="filter-pill whitespace-nowrap px-5 py-2.5 rounded-full text-sm font-bold transition-all" data-category="Bien-être" onclick="filterPrograms('Bien-être')">Bien-etre &#129495;</button>
+        <button class="filter-pill whitespace-nowrap px-5 py-2.5 rounded-full text-sm font-bold transition-all" data-category="Gastronomie" onclick="filterPrograms('Gastronomie')">Gastronomie &#127869;</button>
+        <button class="filter-pill whitespace-nowrap px-5 py-2.5 rounded-full text-sm font-bold transition-all" data-category="Environnement" onclick="filterPrograms('Environnement')">Environnement &#127807;</button>
+      </div>
+
+      <!-- Programs grid -->
+      <div id="programsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Cards rendered by JS -->
+      </div>
+
+      <!-- Show all button -->
+      <div id="showAllWrapper" class="text-center mt-8 hidden">
+        <button class="m2-btn-outline" onclick="showAllPrograms()">Tout voir</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== RADIO ASSOCIATIVE ========== -->
+  <section class="py-20 sm:py-28" style="background: var(--brown);">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+        <div class="flex-1 w-full">
+          <img src="https://www.agoracotedazur.fr/wp-content/uploads/Reportages.jpg" alt="Radio associative" class="w-full rounded-3xl shadow-2xl object-cover" style="max-height: 480px;" />
+        </div>
+        <div class="flex-1">
+          <h2 class="m2-display text-4xl sm:text-5xl font-bold mb-8" style="color: var(--text-dark);">
+            la radio <em style="color: var(--red-accent);">associative</em>
+          </h2>
+          <p class="text-base sm:text-lg leading-relaxed mb-4" style="color: var(--text-light);">
+            Agora Cote d'Azur est une radio associative a but non lucratif, financee par les cotisations de ses adherents et les subventions publiques. Aucune publicite ne vient interrompre nos programmes.
+          </p>
+          <p class="text-base sm:text-lg leading-relaxed mb-8" style="color: var(--text-dim);">
+            Notre equipe de benevoles passionnes produit chaque semaine des dizaines d'heures d'emissions originales, couvrant l'actualite locale, la culture, la musique, l'environnement et bien plus encore.
+          </p>
+          <button class="m2-btn-outline" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">
+            Decouvrir &rarr;
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CONTACT FORM ========== -->
+  <section id="contact" class="py-20 sm:py-28" style="background: var(--cream-dark);">
+    <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="m2-display text-4xl sm:text-5xl font-bold text-center mb-12" style="color: var(--text-dark);">
+        contactez <em style="color: var(--red-accent);">nous</em>
+      </h2>
+
+      <form id="contactForm" class="space-y-5" onsubmit="handleContactSubmit(event)">
+        <div>
+          <input type="text" name="nom" placeholder="Nom" required
+            class="w-full px-5 py-3.5 rounded-2xl border-2 text-base transition-all outline-none"
+            style="background: var(--cream); border-color: rgba(0,0,0,0.1); color: var(--text-dark);"
+            onfocus="this.style.borderColor='var(--red-accent)'" onblur="this.style.borderColor='rgba(0,0,0,0.1)'" />
+        </div>
+        <div>
+          <input type="email" name="email" placeholder="Email" required
+            class="w-full px-5 py-3.5 rounded-2xl border-2 text-base transition-all outline-none"
+            style="background: var(--cream); border-color: rgba(0,0,0,0.1); color: var(--text-dark);"
+            onfocus="this.style.borderColor='var(--red-accent)'" onblur="this.style.borderColor='rgba(0,0,0,0.1)'" />
+        </div>
+        <div>
+          <input type="text" name="sujet" placeholder="Sujet" required
+            class="w-full px-5 py-3.5 rounded-2xl border-2 text-base transition-all outline-none"
+            style="background: var(--cream); border-color: rgba(0,0,0,0.1); color: var(--text-dark);"
+            onfocus="this.style.borderColor='var(--red-accent)'" onblur="this.style.borderColor='rgba(0,0,0,0.1)'" />
+        </div>
+        <div>
+          <textarea name="message" placeholder="Message" rows="5" required
+            class="w-full px-5 py-3.5 rounded-2xl border-2 text-base transition-all outline-none resize-none"
+            style="background: var(--cream); border-color: rgba(0,0,0,0.1); color: var(--text-dark);"
+            onfocus="this.style.borderColor='var(--red-accent)'" onblur="this.style.borderColor='rgba(0,0,0,0.1)'"></textarea>
+        </div>
+        <div class="text-center">
+          <button type="submit" class="m2-btn w-full sm:w-auto">Envoyer le message</button>
+        </div>
+      </form>
+
+      <!-- Success message -->
+      <div id="contactSuccess" class="hidden mt-8 p-8 rounded-3xl text-center" style="background: var(--cream); border: 2px solid var(--red-accent);">
+        <div class="text-4xl mb-3">&#9989;</div>
+        <h3 class="m2-display text-2xl font-bold mb-2" style="color: var(--text-dark);">Message envoye !</h3>
+        <p style="color: var(--text-dim);">Merci pour votre message. Nous vous repondrons dans les plus brefs delais.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="py-16" style="background: #1A1A2E; color: rgba(255,255,255,0.7);">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+        <!-- Brand -->
+        <div class="md:col-span-2">
+          <div class="flex items-center gap-3 mb-4">
+            <img src="logo-grassefm.jpg" alt="Logo" class="w-10 h-10 rounded-full object-cover" />
+            <span class="m2-display text-xl font-bold text-white">Agora<span style="color: var(--red-accent);">CA</span></span>
+          </div>
+          <p class="text-sm leading-relaxed max-w-sm" style="color: rgba(255,255,255,0.5);">
+            Radio associative du Pays de Grasse, 87,7 FM. Culture, musique, information locale depuis 1982. Sans publicite, pour tous.
+          </p>
+        </div>
+        <!-- Radio links -->
+        <div>
+          <h4 class="text-white font-bold text-sm uppercase tracking-wider mb-4">Radio</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a href="#hero" class="hover:text-white transition">Accueil</a></li>
+            <li><a href="#programs" class="hover:text-white transition">Programmes</a></li>
+            <li><a href="#programs" class="hover:text-white transition">Podcasts</a></li>
+            <li><a href="#" class="hover:text-white transition">Grille</a></li>
+          </ul>
+        </div>
+        <!-- Contact links -->
+        <div>
+          <h4 class="text-white font-bold text-sm uppercase tracking-wider mb-4">Contact</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a href="#contact" class="hover:text-white transition">Nous ecrire</a></li>
+            <li><a href="#" class="hover:text-white transition">Instagram</a></li>
+            <li><a href="#" class="hover:text-white transition">TikTok</a></li>
+          </ul>
+        </div>
+      </div>
+      <!-- Bottom -->
+      <div class="border-t border-white/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs" style="color: rgba(255,255,255,0.4);">
+        <span>&copy; 2026 Agora Cote d'Azur. Tous droits reserves.</span>
+        <a href="#navbar" class="hover:text-white transition">Retour en haut &uarr;</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========== MINI PLAYER ========== -->
+  <div class="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 flex items-center gap-4 px-5 py-3 rounded-full shadow-2xl" style="background: rgba(26,26,46,0.92); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.08);">
+    <!-- Live dot -->
+    <div class="m2-live-dot" style="width: 8px; height: 8px;"></div>
+    <span class="text-xs font-bold text-white/60 uppercase tracking-wider">Live</span>
+    <span class="text-sm font-bold text-white hidden sm:inline">Reportages Actus</span>
+    <!-- Equalizer -->
+    <div class="flex items-end gap-0.5 h-4">
+      <div class="w-1 rounded-full m2-eq-bar" style="background: var(--red-accent); animation-delay: 0s;"></div>
+      <div class="w-1 rounded-full m2-eq-bar" style="background: var(--red-accent); animation-delay: 0.15s;"></div>
+      <div class="w-1 rounded-full m2-eq-bar" style="background: var(--red-accent); animation-delay: 0.3s;"></div>
+      <div class="w-1 rounded-full m2-eq-bar" style="background: var(--red-accent); animation-delay: 0.45s;"></div>
+      <div class="w-1 rounded-full m2-eq-bar" style="background: var(--red-accent); animation-delay: 0.6s;"></div>
+    </div>
+    <!-- Play button -->
+    <button class="w-10 h-10 rounded-full flex items-center justify-center transition hover:scale-105" style="background: var(--coral);">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><polygon points="6,3 20,12 6,21"/></svg>
+    </button>
+  </div>
+
+  <!-- ========== MAQUETTE SWITCHER ========== -->
+  <div class="fixed top-1/2 -translate-y-1/2 right-4 z-50 flex flex-col gap-2 p-2 rounded-2xl" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.2);">
+    <a href="index.html" class="w-10 h-10 rounded-xl flex items-center justify-center text-xs font-bold transition hover:scale-105" style="background: rgba(0,0,0,0.06); color: var(--text-dark);">1</a>
+    <a href="retro.html" class="w-10 h-10 rounded-xl flex items-center justify-center text-xs font-bold text-white transition" style="background: #D63535;">2</a>
+    <a href="vintage.html" class="w-10 h-10 rounded-xl flex items-center justify-center text-xs font-bold transition hover:scale-105" style="background: rgba(0,0,0,0.06); color: var(--text-dark);">3</a>
+  </div>
+
+  <!-- ========== JAVASCRIPT ========== -->
+  <script>
+    // Programs data
+    const programs = [
+      { title: 'Reportages Actus', description: "Des reportages au coeur de l'actualite locale des Alpes-Maritimes.", category: 'Actu & Société', color: '#D63535', image: 'https://www.agoracotedazur.fr/wp-content/uploads/Reportages-actusoci%C3%A9t%C3%A9.jpg' },
+      { title: 'Cine Passion', description: 'Critiques des films sortis dans les salles, avec Pascal Gaymard.', category: 'Culture', color: '#2B45A8', image: 'https://www.agoracotedazur.fr/wp-content/uploads/Cine-passion-1.jpg' },
+      { title: 'La Boite de Jazz', description: "Hommage a Gilbert d'Alto. Les plus belles pepites jazz.", category: 'Musique', color: '#B8860B', image: 'https://www.agoracotedazur.fr/wp-content/uploads/elementor/thumbs/La-boite-de-Jazz-r03whyvg48wm9fxk48bbaxaw3zd00h5ebdn2bqffiw.jpg' },
+      { title: 'Le Bonheur est dans la Poele', description: 'Gastronomie, recettes provencales et rencontres avec les chefs.', category: 'Gastronomie', color: '#D2691E', image: 'https://www.agoracotedazur.fr/wp-content/uploads/Le-bonheur-est-dans-la-poele.jpg' },
+      { title: 'La Chronique Ecolo', description: "Ecologie et biodiversite mediterraneenne.", category: 'Environnement', color: '#228B22', image: 'https://www.agoracotedazur.fr/wp-content/uploads/La-chronique-ecolo.jpg' },
+      { title: "L'Artiste du Jour", description: "Decouverte musicale quotidienne, talents locaux.", category: 'Musique', color: '#8B5CF6', image: 'https://www.agoracotedazur.fr/wp-content/uploads/elementor/thumbs/L-artiste-du-jour-r25zw7f1d1l360gqc3m1n1dz1m9cwanm14imejdaoo.jpg' },
+      { title: 'Alter Regard', description: "Un autre regard sur la societe et ses enjeux.", category: 'Actu & Société', color: '#D63535', image: 'https://www.agoracotedazur.fr/wp-content/uploads/Alter-regard.jpg' },
+      { title: 'Scene Regionale', description: "La scene musicale locale et les artistes de la region.", category: 'Musique', color: '#B8860B', image: 'https://www.agoracotedazur.fr/wp-content/uploads/Sc%C3%A8ne-r%C3%A9gionale-1.jpg' },
+      { title: 'Sorties Cine', description: "Les films de la semaine decryptes.", category: 'Culture', color: '#2B45A8', image: 'https://www.agoracotedazur.fr/wp-content/uploads/Sorties-Cine-1-1.jpg' },
+      { title: 'Parlons des Droits Humains', description: "Droits humains et enjeux societaux.", category: 'Actu & Société', color: '#6A5ACD', image: 'https://www.agoracotedazur.fr/wp-content/uploads/Parlons-des-droits-humains.jpg' },
+      { title: "J'ai lu pour vous", description: "Coups de coeur litteraires et interviews d'auteurs.", category: 'Culture', color: '#2B45A8', image: 'https://www.agoracotedazur.fr/wp-content/uploads/jai-lu-pourvous.jpg' }
+    ];
+
+    let currentFilter = 'all';
+    let showAll = false;
+
+    function createProgramCard(prog) {
+      return `
+        <div class="group rounded-3xl overflow-hidden shadow-lg transition-all hover:shadow-2xl hover:-translate-y-1" style="background: var(--cream);">
+          <div class="relative h-48 overflow-hidden">
+            <img src="${prog.image}" alt="${prog.title}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+            <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 60%);"></div>
+            <span class="absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-bold text-white" style="background: rgba(255,255,255,0.2); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);">${prog.category}</span>
+            <h3 class="absolute bottom-3 left-3 right-3 text-white font-bold text-lg leading-tight">${prog.title}</h3>
+          </div>
+          <div class="p-5">
+            <p class="text-sm mb-4 leading-relaxed" style="color: var(--text-dim);">${prog.description}</p>
+            <div class="flex items-center justify-between">
+              <button class="m2-btn text-xs" style="padding: 8px 20px; font-size: 0.8rem;">Ecouter</button>
+              <div class="flex items-center gap-2">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="#1DB954" title="Spotify"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="#A855F7" title="Apple Podcasts"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 3.6c4.637 0 8.4 3.763 8.4 8.4 0 1.846-.596 3.554-1.607 4.941-.178-.89-.489-1.893-.943-2.508-.384-.52-.805-.633-1.298-.363-.47.257-.754.802-.896 1.505a17.3 17.3 0 0 1-.385 1.518c-.218.72-.456 1.226-.83 1.57-.374.342-.74.337-1.141.337h-2.6c-.401 0-.767.005-1.141-.338-.374-.343-.612-.849-.83-1.569a17.3 17.3 0 0 1-.385-1.518c-.142-.703-.426-1.248-.896-1.505-.493-.27-.914-.157-1.298.363-.454.615-.765 1.618-.943 2.508A8.363 8.363 0 0 1 3.6 12c0-4.637 3.763-8.4 8.4-8.4zm0 4.8a3.6 3.6 0 1 0 0 7.2 3.6 3.6 0 0 0 0-7.2z"/></svg>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="#EC4899" title="Deezer"><rect width="24" height="24" rx="4" fill="#EC4899"/><rect x="3" y="16" width="4" height="3" rx="0.5" fill="white"/><rect x="10" y="13" width="4" height="6" rx="0.5" fill="white"/><rect x="17" y="10" width="4" height="9" rx="0.5" fill="white"/><rect x="10" y="10" width="4" height="2" rx="0.5" fill="white"/><rect x="17" y="7" width="4" height="2" rx="0.5" fill="white"/></svg>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="#EF4444" title="YouTube"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function filterPrograms(category) {
+      currentFilter = category;
+      showAll = false;
+
+      // Update active pill
+      document.querySelectorAll('.filter-pill').forEach(btn => {
+        if (btn.dataset.category === category) {
+          btn.style.background = 'var(--red-accent)';
+          btn.style.color = '#fff';
+          btn.style.borderColor = 'transparent';
+          btn.classList.add('active');
+        } else {
+          btn.style.background = 'transparent';
+          btn.style.color = 'var(--text-dark)';
+          btn.style.border = '2px solid rgba(0,0,0,0.12)';
+          btn.classList.remove('active');
+        }
+      });
+
+      renderPrograms();
+    }
+
+    function showAllPrograms() {
+      showAll = true;
+      renderPrograms();
+    }
+
+    function renderPrograms() {
+      const filtered = currentFilter === 'all' ? programs : programs.filter(p => p.category === currentFilter);
+      const limit = 8;
+      const toShow = showAll ? filtered : filtered.slice(0, limit);
+      const grid = document.getElementById('programsGrid');
+      grid.innerHTML = toShow.map(createProgramCard).join('');
+
+      const showAllWrapper = document.getElementById('showAllWrapper');
+      if (filtered.length > limit && !showAll) {
+        showAllWrapper.classList.remove('hidden');
+      } else {
+        showAllWrapper.classList.add('hidden');
+      }
+    }
+
+    // Contact form
+    function handleContactSubmit(e) {
+      e.preventDefault();
+      document.getElementById('contactForm').classList.add('hidden');
+      document.getElementById('contactSuccess').classList.remove('hidden');
+    }
+
+    // Init filter pills style
+    document.querySelectorAll('.filter-pill').forEach(btn => {
+      if (btn.classList.contains('active')) {
+        btn.style.background = 'var(--red-accent)';
+        btn.style.color = '#fff';
+        btn.style.borderColor = 'transparent';
+      } else {
+        btn.style.background = 'transparent';
+        btn.style.color = 'var(--text-dark)';
+        btn.style.border = '2px solid rgba(0,0,0,0.12)';
+      }
+    });
+
+    // Render programs on load
+    renderPrograms();
+  </script>
+
+</body>
+</html>

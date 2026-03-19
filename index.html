@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agora Côte d'Azur – 87.7 FM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: '#C8322A',
+            'brand-dark': '#A52820',
+            'brand-light': '#E04A42',
+            navy: '#1C2544',
+            'navy-light': '#2A3660',
+            cream: '#F5E6C8',
+            'cream-light': '#FDF6EC',
+            'cream-dark': '#E8D4AB',
+            'accent-pink': '#E8828A',
+            'accent-blue': '#4A8DB7',
+            'accent-yellow': '#F0C75E',
+            'accent-green': '#6DAF7B',
+            'accent-purple': '#8B6BAE',
+            'accent-orange': '#D97B3D',
+          },
+          fontFamily: {
+            display: ["'Bangers'", 'cursive'],
+            sans: ["'Comic Neue'", 'cursive', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    body {
+      background-color: #FDF6EC;
+      margin: 0;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    .maquette-1::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: radial-gradient(circle, #1C254412 1px, transparent 1px);
+      background-size: 8px 8px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .comic-panel {
+      border: 3px solid #1C2544;
+      box-shadow: 6px 6px 0px #1C2544;
+      background: #FFFFFF;
+      position: relative;
+    }
+
+    .comic-panel-sm {
+      border: 2px solid #1C2544;
+      box-shadow: 4px 4px 0px #1C2544;
+      background: #FFFFFF;
+    }
+
+    .speech-bubble {
+      position: relative;
+      background: #FFFFFF;
+      border: 3px solid #1C2544;
+      border-radius: 20px;
+      box-shadow: 4px 4px 0px #1C2544;
+    }
+
+    .speech-bubble::after {
+      content: '';
+      position: absolute;
+      bottom: -20px;
+      left: 30px;
+      width: 0;
+      height: 0;
+      border-left: 15px solid transparent;
+      border-right: 15px solid transparent;
+      border-top: 20px solid #1C2544;
+    }
+
+    .speech-bubble::before {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      left: 33px;
+      width: 0;
+      height: 0;
+      border-left: 12px solid transparent;
+      border-right: 12px solid transparent;
+      border-top: 17px solid #FFFFFF;
+      z-index: 1;
+    }
+
+    .thought-bubble {
+      position: relative;
+      background: #FFFFFF;
+      border: 3px solid #1C2544;
+      border-radius: 50px;
+      box-shadow: 4px 4px 0px #1C2544;
+    }
+
+    .thought-bubble::after {
+      content: '';
+      position: absolute;
+      bottom: -25px;
+      left: 40px;
+      width: 16px;
+      height: 16px;
+      background: #FFFFFF;
+      border: 3px solid #1C2544;
+      border-radius: 50%;
+      box-shadow: 3px 3px 0px #1C2544;
+    }
+
+    .thought-bubble::before {
+      content: '';
+      position: absolute;
+      bottom: -42px;
+      left: 50px;
+      width: 10px;
+      height: 10px;
+      background: #FFFFFF;
+      border: 2px solid #1C2544;
+      border-radius: 50%;
+      box-shadow: 2px 2px 0px #1C2544;
+      z-index: 1;
+    }
+
+    .speed-lines {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .speed-lines::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: -50%;
+      width: 100%;
+      height: 100%;
+      background: repeating-linear-gradient(
+        -15deg,
+        transparent,
+        transparent 4px,
+        rgba(28, 37, 68, 0.04) 4px,
+        rgba(28, 37, 68, 0.04) 5px
+      );
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .comic-btn {
+      border: 3px solid #1C2544;
+      box-shadow: 4px 4px 0px #1C2544;
+      font-family: 'Bangers', cursive;
+      letter-spacing: 0.05em;
+      transition: all 0.15s ease;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .comic-btn:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0px #1C2544;
+    }
+
+    .comic-btn:active {
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0px #1C2544;
+    }
+
+    .comic-card {
+      border: 3px solid #1C2544;
+      box-shadow: 6px 6px 0px #1C2544;
+      background: #FFFFFF;
+      transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .comic-card:hover {
+      transform: translate(-3px, -3px) rotate(-0.5deg);
+      box-shadow: 9px 9px 0px #1C2544;
+    }
+
+    .comic-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 40px;
+      height: 40px;
+      background: repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 3px,
+        #1C254415 3px,
+        #1C254415 6px
+      );
+      z-index: 1;
+    }
+
+    .comic-link {
+      position: relative;
+      text-decoration: none;
+    }
+
+    .comic-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: #C8322A;
+      transform: skewX(-12deg);
+      transition: height 0.2s;
+    }
+
+    .comic-link:hover::after {
+      height: 6px;
+    }
+
+    .category-badge {
+      border: 2px solid #1C2544;
+      box-shadow: 2px 2px 0px #1C2544;
+      font-family: 'Bangers', cursive;
+      letter-spacing: 0.08em;
+    }
+
+    .mini-player-pill {
+      box-shadow: 5px 5px 0px #1C2544;
+      border: 3px solid #1C2544;
+    }
+
+    @keyframes marquee-scroll {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      25% { transform: translateY(-8px) rotate(0.5deg); }
+      75% { transform: translateY(5px) rotate(-0.5deg); }
+    }
+
+    @keyframes spin-vinyl {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .vinyl {
+      animation: spin-vinyl 8s linear infinite;
+      filter: drop-shadow(6px 6px 0px #1C2544);
+    }
+
+    .vinyl-slow {
+      animation: spin-vinyl 14s linear infinite;
+    }
+
+    .vinyl-reverse {
+      animation: spin-vinyl 11s linear infinite reverse;
+    }
+
+    @keyframes slide-up {
+      0% { transform: translateY(30px); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+
+    .animate-float {
+      animation: float 5s ease-in-out infinite;
+    }
+
+    .animate-slide-up {
+      animation: slide-up 0.6s ease-out both;
+    }
+
+    .comic-divider {
+      position: relative;
+      height: 40px;
+    }
+
+    .comic-divider::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 50%;
+      height: 3px;
+      background: #1C2544;
+    }
+
+    .comic-divider::after {
+      content: '★';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      background: #FDF6EC;
+      padding: 0 15px;
+      font-size: 24px;
+      color: #C8322A;
+    }
+
+    ::-webkit-scrollbar {
+      width: 12px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #FDF6EC;
+      border-left: 2px solid #1C2544;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #C8322A;
+      border: 2px solid #1C2544;
+      border-radius: 0;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #A52820;
+    }
+  </style>
+</head>
+<body class="maquette-1 font-sans text-navy relative">
+
+  <!-- ==================== NAVBAR ==================== -->
+  <nav class="sticky top-0 z-50 bg-cream-light border-b-3 border-navy" style="border-bottom: 3px solid #1C2544;">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <!-- Logo -->
+        <a href="#" class="flex items-center gap-2">
+          <span class="font-display text-2xl sm:text-3xl text-brand tracking-wide">AGORA CÔTE D'AZUR</span>
+        </a>
+
+        <!-- Desktop links -->
+        <div class="hidden md:flex items-center gap-8">
+          <a href="#accueil" class="comic-link font-bold text-navy">Accueil</a>
+          <a href="#programmes" class="comic-link font-bold text-navy">Podcast</a>
+          <a href="#contact" class="comic-link font-bold text-navy">Contact</a>
+          <button class="comic-btn bg-brand text-white px-5 py-2 text-lg rounded-md" onclick="window.open('https://www.agoracotedazur.fr','_blank')">
+            ÉCOUTER LIVE !
+          </button>
+        </div>
+
+        <!-- Hamburger -->
+        <button id="hamburger-btn" class="md:hidden flex flex-col gap-1.5 p-2" onclick="toggleMenu()">
+          <span class="block w-6 h-0.5 bg-navy transition-all" id="ham-line1"></span>
+          <span class="block w-6 h-0.5 bg-navy transition-all" id="ham-line2"></span>
+          <span class="block w-6 h-0.5 bg-navy transition-all" id="ham-line3"></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-cream-light border-t-2 border-navy pb-4">
+      <div class="flex flex-col items-center gap-4 pt-4">
+        <a href="#accueil" class="comic-link font-bold text-navy text-lg" onclick="toggleMenu()">Accueil</a>
+        <a href="#programmes" class="comic-link font-bold text-navy text-lg" onclick="toggleMenu()">Podcast</a>
+        <a href="#contact" class="comic-link font-bold text-navy text-lg" onclick="toggleMenu()">Contact</a>
+        <button class="comic-btn bg-brand text-white px-5 py-2 text-lg rounded-md" onclick="window.open('https://www.agoracotedazur.fr','_blank')">
+          ÉCOUTER LIVE !
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ==================== HERO ==================== -->
+  <section id="accueil" class="speed-lines relative min-h-[80vh] flex items-center justify-center py-16 px-4 overflow-hidden">
+    <!-- Vinyl 1 — top left -->
+    <div class="absolute -top-10 -left-16 opacity-20 vinyl" style="width:320px;height:320px;">
+      <svg viewBox="0 0 320 320" width="320" height="320">
+        <circle cx="160" cy="160" r="155" fill="#1C1C1C"/>
+        <circle cx="160" cy="160" r="140" fill="none" stroke="#2a2a2a" stroke-width="0.5"/>
+        <circle cx="160" cy="160" r="125" fill="none" stroke="#2a2a2a" stroke-width="0.5"/>
+        <circle cx="160" cy="160" r="110" fill="none" stroke="#2a2a2a" stroke-width="0.5"/>
+        <circle cx="160" cy="160" r="95" fill="none" stroke="#2a2a2a" stroke-width="0.5"/>
+        <circle cx="160" cy="160" r="80" fill="none" stroke="#2a2a2a" stroke-width="0.5"/>
+        <circle cx="160" cy="160" r="60" fill="#C8322A"/>
+        <text x="160" y="152" text-anchor="middle" fill="white" font-family="'Bangers', cursive" font-size="22" letter-spacing="3">AGORA</text>
+        <text x="160" y="172" text-anchor="middle" fill="white" font-family="'Comic Neue', sans-serif" font-size="10">87.7 MHZ</text>
+        <circle cx="160" cy="160" r="12" fill="#1C1C1C"/>
+        <circle cx="160" cy="160" r="4" fill="#555"/>
+      </svg>
+    </div>
+
+    <!-- Vinyl 2 — bottom right -->
+    <div class="absolute -bottom-16 -right-10 opacity-15 vinyl-slow" style="width:260px;height:260px;filter:drop-shadow(6px 6px 0px #1C2544);">
+      <svg viewBox="0 0 260 260" width="260" height="260">
+        <circle cx="130" cy="130" r="125" fill="#1C1C1C"/>
+        <circle cx="130" cy="130" r="112" fill="none" stroke="#2a2a2a" stroke-width="0.5"/>
+        <circle cx="130" cy="130" r="100" fill="none" stroke="#2a2a2a" stroke-width="0.5"/>
+        <circle cx="130" cy="130" r="88" fill="none" stroke="#2a2a2a" stroke-width="0.5"/>
+        <circle cx="130" cy="130" r="75" fill="none" stroke="#2a2a2a" stroke-width="0.5"/>
+        <circle cx="130" cy="130" r="50" fill="#F0C75E"/>
+        <text x="130" y="123" text-anchor="middle" fill="#1C2544" font-family="'Bangers', cursive" font-size="20" letter-spacing="3">FM</text>
+        <text x="130" y="142" text-anchor="middle" fill="#1C2544" font-family="'Comic Neue', sans-serif" font-size="9">87.7 MHZ</text>
+        <circle cx="130" cy="130" r="10" fill="#1C1C1C"/>
+        <circle cx="130" cy="130" r="3" fill="#555"/>
+      </svg>
+    </div>
+
+    <!-- Vinyl 3 — center, hidden mobile -->
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-10 vinyl-reverse hidden md:block" style="width:140px;height:140px;filter:drop-shadow(6px 6px 0px #1C2544);">
+      <svg viewBox="0 0 140 140" width="140" height="140">
+        <circle cx="70" cy="70" r="67" fill="#1C1C1C"/>
+        <circle cx="70" cy="70" r="58" fill="none" stroke="#2a2a2a" stroke-width="0.5"/>
+        <circle cx="70" cy="70" r="50" fill="none" stroke="#2a2a2a" stroke-width="0.5"/>
+        <circle cx="70" cy="70" r="42" fill="none" stroke="#2a2a2a" stroke-width="0.5"/>
+        <circle cx="70" cy="70" r="25" fill="#4A8DB7"/>
+        <circle cx="70" cy="70" r="7" fill="#1C1C1C"/>
+        <circle cx="70" cy="70" r="2.5" fill="#555"/>
+      </svg>
+    </div>
+
+    <div class="relative z-10 max-w-4xl mx-auto text-center">
+      <!-- Speech bubble -->
+      <div class="speech-bubble inline-block px-6 py-3 mb-8 animate-slide-up">
+        <p class="font-bold text-sm sm:text-base text-navy">87,7 MHZ &bull; LA RADIO DU PAYS DE GRASSE – AGORA CÔTE D'AZUR</p>
+      </div>
+
+      <!-- Big title -->
+      <div class="mb-6">
+        <h1 class="font-display text-7xl sm:text-8xl md:text-9xl leading-none">
+          <span class="block text-brand" style="transform: rotate(-2deg);">AGORA</span>
+          <span class="block text-navy" style="transform: rotate(1deg);">CÔTE D'AZUR</span>
+        </h1>
+        <!-- SVG underline -->
+        <svg class="mx-auto mt-2" width="240" height="12" viewBox="0 0 240 12">
+          <path d="M0 8 Q60 0, 120 6 T240 4" stroke="#C8322A" stroke-width="4" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+
+      <!-- Thought bubble tagline -->
+      <div class="thought-bubble inline-block px-8 py-4 mb-10">
+        <p class="font-bold text-base sm:text-lg text-navy">La voix associative du Pays de Grasse depuis 1982 &bull; Sans pub &bull; 100% bénévole</p>
+      </div>
+
+      <!-- CTA buttons -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mt-6">
+        <button class="comic-btn bg-brand text-white px-8 py-3 text-xl rounded-md flex items-center gap-3" onclick="window.open('https://www.agoracotedazur.fr','_blank')">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          LANCER LE DIRECT
+          <span class="bg-white text-brand text-xs font-display px-2 py-0.5 rounded-full ml-1 animate-pulse">LIVE!</span>
+        </button>
+        <a href="#programmes" class="comic-btn bg-navy text-white px-8 py-3 text-xl rounded-md inline-block">
+          VOIR LA GRILLE
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== COMIC DIVIDER ==================== -->
+  <div class="comic-divider my-4"></div>
+
+  <!-- ==================== ABOUT US ==================== -->
+  <section class="relative z-10 max-w-6xl mx-auto px-4 py-16">
+    <div class="speech-bubble inline-block px-6 py-3 mb-10">
+      <h2 class="font-display text-3xl sm:text-4xl text-navy">QUI SOMMES-NOUS ?</h2>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-10 items-center mt-8">
+      <!-- Image -->
+      <div class="comic-panel rounded-lg overflow-hidden">
+        <img src="micro-agora.jpg" alt="Micro Agora Côte d'Azur" class="w-full h-auto object-cover" />
+      </div>
+
+      <!-- Text -->
+      <div>
+        <p class="text-lg leading-relaxed mb-4">
+          <strong>Agora Côte d'Azur</strong> émet sur le <strong>87.7 FM</strong> depuis <strong>1982</strong>. Radio associative, sans publicité, elle est portée par une équipe 100% bénévole passionnée par le territoire du Pays de Grasse et de la Côte d'Azur.
+        </p>
+        <p class="text-lg leading-relaxed mb-6">
+          De l'actualité locale aux découvertes musicales, en passant par la culture, la gastronomie et l'environnement, Agora Côte d'Azur donne la parole à ceux qui font vivre notre région.
+        </p>
+
+        <!-- Badges -->
+        <div class="flex flex-wrap gap-3">
+          <span class="category-badge bg-accent-blue text-white px-4 py-2 rounded-full text-sm">📻 Depuis 1982</span>
+          <span class="category-badge bg-accent-green text-white px-4 py-2 rounded-full text-sm">🎙️ Sans publicité</span>
+          <span class="category-badge bg-accent-pink text-white px-4 py-2 rounded-full text-sm">❤️ 100% associative</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== COMIC DIVIDER ==================== -->
+  <div class="comic-divider my-4"></div>
+
+  <!-- ==================== PROGRAMS ==================== -->
+  <section id="programmes" class="relative z-10 max-w-6xl mx-auto px-4 py-16">
+    <div class="text-center mb-10">
+      <h2 class="font-display text-4xl sm:text-5xl text-navy inline-block">PROGRAMMES &amp; PODCASTS</h2>
+      <svg class="mx-auto mt-2" width="300" height="12" viewBox="0 0 300 12">
+        <path d="M0 8 Q75 0, 150 6 T300 4" stroke="#C8322A" stroke-width="4" fill="none" stroke-linecap="round"/>
+      </svg>
+    </div>
+
+    <!-- Filter bar -->
+    <div class="comic-panel rounded-lg p-4 mb-8 overflow-x-auto">
+      <div class="flex flex-wrap gap-2" id="filter-bar">
+        <!-- Filters injected by JS -->
+      </div>
+    </div>
+
+    <!-- Program grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="programs-grid">
+      <!-- Cards injected by JS -->
+    </div>
+
+    <!-- Pagination -->
+    <div class="flex items-center justify-center gap-3 mt-10" id="pagination">
+      <!-- Buttons injected by JS -->
+    </div>
+  </section>
+
+  <!-- ==================== COMIC DIVIDER ==================== -->
+  <div class="comic-divider my-4"></div>
+
+  <!-- ==================== RADIO ASSOCIATIVE ==================== -->
+  <section class="relative z-10 max-w-6xl mx-auto px-4 py-16">
+    <div class="grid md:grid-cols-2 gap-10 items-center">
+      <!-- Image -->
+      <div class="comic-panel rounded-lg overflow-hidden">
+        <img src="https://www.agoracotedazur.fr/wp-content/uploads/Reportages.jpg" alt="Reportages Agora" class="w-full h-auto object-cover" />
+      </div>
+
+      <!-- Text -->
+      <div>
+        <div class="speech-bubble inline-block px-6 py-3 mb-8">
+          <h2 class="font-display text-3xl sm:text-4xl text-navy">LA RADIO ASSOCIATIVE</h2>
+        </div>
+        <p class="text-lg leading-relaxed mb-4 mt-6">
+          Depuis plus de 40 ans, <strong>Agora Côte d'Azur</strong> est un espace de liberté radiophonique. Pas de régie publicitaire, pas d'actionnaires : juste des bénévoles motivés et un micro ouvert.
+        </p>
+        <p class="text-lg leading-relaxed mb-6">
+          Nous croyons qu'une radio locale indépendante est essentielle pour le lien social, la culture et la démocratie de proximité. Rejoignez l'aventure !
+        </p>
+        <a href="#contact" class="comic-btn bg-brand text-white px-6 py-3 text-lg rounded-md inline-block">
+          DÉCOUVRIR →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== COMIC DIVIDER ==================== -->
+  <div class="comic-divider my-4"></div>
+
+  <!-- ==================== CONTACT ==================== -->
+  <section id="contact" class="relative z-10 max-w-4xl mx-auto px-4 py-16">
+    <div class="text-center mb-10">
+      <div class="speech-bubble inline-block px-6 py-3">
+        <h2 class="font-display text-3xl sm:text-4xl text-navy">CONTACTEZ-NOUS !</h2>
+      </div>
+    </div>
+
+    <!-- Form panel -->
+    <div id="contact-form-panel" class="comic-panel rounded-lg p-6 sm:p-10 mt-10">
+      <form id="contact-form" onsubmit="handleContactSubmit(event)">
+        <div class="grid sm:grid-cols-2 gap-6 mb-6">
+          <div>
+            <label class="block font-bold text-navy mb-2 font-display text-lg">Nom</label>
+            <input type="text" required class="w-full border-3 border-navy rounded-md px-4 py-3 font-sans text-base bg-cream-light focus:outline-none focus:ring-2 focus:ring-brand" style="border-width:3px;" placeholder="Votre nom" />
+          </div>
+          <div>
+            <label class="block font-bold text-navy mb-2 font-display text-lg">Email</label>
+            <input type="email" required class="w-full border-3 border-navy rounded-md px-4 py-3 font-sans text-base bg-cream-light focus:outline-none focus:ring-2 focus:ring-brand" style="border-width:3px;" placeholder="votre@email.com" />
+          </div>
+        </div>
+        <div class="mb-6">
+          <label class="block font-bold text-navy mb-2 font-display text-lg">Sujet</label>
+          <input type="text" required class="w-full border-3 border-navy rounded-md px-4 py-3 font-sans text-base bg-cream-light focus:outline-none focus:ring-2 focus:ring-brand" style="border-width:3px;" placeholder="Sujet de votre message" />
+        </div>
+        <div class="mb-6">
+          <label class="block font-bold text-navy mb-2 font-display text-lg">Message</label>
+          <textarea required rows="5" class="w-full border-3 border-navy rounded-md px-4 py-3 font-sans text-base bg-cream-light focus:outline-none focus:ring-2 focus:ring-brand resize-none" style="border-width:3px;" placeholder="Votre message..."></textarea>
+        </div>
+        <button type="submit" class="comic-btn bg-brand text-white px-8 py-3 text-xl rounded-md w-full sm:w-auto">
+          ENVOYER →
+        </button>
+      </form>
+    </div>
+
+    <!-- Sent confirmation (hidden by default) -->
+    <div id="contact-sent-panel" class="comic-panel rounded-lg p-10 text-center mt-10 hidden">
+      <div class="text-6xl mb-4">📬</div>
+      <h3 class="font-display text-3xl text-brand mb-4">MESSAGE ENVOYÉ !</h3>
+      <p class="text-lg text-navy">Merci pour votre message. Nous vous répondrons dans les plus brefs délais.</p>
+      <button onclick="resetContactForm()" class="comic-btn bg-navy text-white px-6 py-3 text-lg rounded-md mt-6 inline-block">
+        ENVOYER UN AUTRE MESSAGE
+      </button>
+    </div>
+  </section>
+
+  <!-- ==================== MINI PLAYER ==================== -->
+  <div class="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 mini-player-pill bg-white rounded-full px-4 py-2 flex items-center gap-3 max-w-md w-[95%] sm:w-auto" style="margin-bottom: 40px;">
+    <!-- On Air badge -->
+    <span class="bg-brand text-white font-display text-xs px-2 py-1 rounded-full whitespace-nowrap animate-pulse">ON AIR!</span>
+    <!-- Thumbnail -->
+    <img src="https://www.agoracotedazur.fr/wp-content/uploads/INFOS.jpg" alt="Direct" class="w-10 h-10 rounded-full object-cover border-2 border-navy flex-shrink-0" />
+    <!-- Text -->
+    <div class="flex-1 min-w-0">
+      <p class="font-display text-sm text-navy truncate">DIRECT LIVE</p>
+      <p class="text-xs text-navy/70 truncate">Reportages Actus</p>
+    </div>
+    <!-- Play button -->
+    <button class="bg-brand text-white rounded-full w-10 h-10 flex items-center justify-center flex-shrink-0 border-2 border-navy hover:bg-brand-dark transition-colors" onclick="window.open('https://www.agoracotedazur.fr','_blank')">
+      <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+    </button>
+  </div>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="relative z-10 bg-navy text-white py-12 mt-8">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="flex flex-col md:flex-row items-center md:items-start justify-between gap-8">
+        <!-- Logo + name -->
+        <div class="flex flex-col items-center md:items-start gap-3">
+          <img src="logo-grassefm.jpg" alt="Logo Agora Côte d'Azur" class="w-20 h-20 rounded-full border-3 border-white object-cover" style="border-width:3px;" />
+          <span class="font-display text-2xl text-white tracking-wide">AGORA CÔTE D'AZUR</span>
+        </div>
+
+        <!-- Speech bubble info -->
+        <div class="speech-bubble px-6 py-4 text-center" style="background:#2A3660;border-color:#F5E6C8;">
+          <p class="text-cream font-bold text-sm">📻 87,7 FM &bull; Pays de Grasse</p>
+          <p class="text-cream/80 text-xs mt-1">Radio associative sans publicité depuis 1982</p>
+          <style>
+            footer .speech-bubble::after { border-top-color: #F5E6C8; }
+            footer .speech-bubble::before { border-top-color: #2A3660; }
+          </style>
+        </div>
+
+        <!-- Social icons -->
+        <div class="flex items-center gap-4">
+          <!-- Instagram -->
+          <a href="https://www.instagram.com/agoracotedazur/" target="_blank" rel="noopener" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors">
+            <svg class="w-5 h-5" fill="white" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          </a>
+          <!-- TikTok -->
+          <a href="https://www.tiktok.com/@agoracotedazur" target="_blank" rel="noopener" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors">
+            <svg class="w-5 h-5" fill="white" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V8.87a8.24 8.24 0 004.76 1.5v-3.4a4.85 4.85 0 01-1-.28z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Copyright -->
+      <div class="text-center mt-10 pt-6 border-t border-white/20">
+        <p class="font-display text-sm text-white/60">&copy; 2026 AGORA CÔTE D'AZUR</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== MAQUETTE SWITCHER ==================== -->
+  <div class="fixed bottom-4 left-1/2 -translate-x-1/2 md:left-4 md:top-1/2 md:-translate-y-1/2 md:translate-x-0 md:bottom-auto z-[60] flex md:flex-col gap-2 p-2 rounded-2xl" style="background: rgba(255,255,255,0.25); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.3);">
+    <a href="index.html" class="w-10 h-10 rounded-full bg-brand text-white font-display text-sm flex items-center justify-center border-2 border-navy shadow-md" title="Comic">1</a>
+    <a href="retro.html" class="w-10 h-10 rounded-full bg-white text-navy font-display text-sm flex items-center justify-center border-2 border-navy shadow-md hover:bg-cream transition-colors" title="Retro">2</a>
+    <a href="vintage.html" class="w-10 h-10 rounded-full bg-white text-navy font-display text-sm flex items-center justify-center border-2 border-navy shadow-md hover:bg-cream transition-colors" title="Vintage">3</a>
+  </div>
+
+  <!-- ==================== JAVASCRIPT ==================== -->
+  <script>
+    // ---- Mobile menu toggle ----
+    function toggleMenu() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+    }
+
+    // ---- Contact form ----
+    function handleContactSubmit(e) {
+      e.preventDefault();
+      document.getElementById('contact-form-panel').classList.add('hidden');
+      document.getElementById('contact-sent-panel').classList.remove('hidden');
+    }
+
+    function resetContactForm() {
+      document.getElementById('contact-form').reset();
+      document.getElementById('contact-sent-panel').classList.add('hidden');
+      document.getElementById('contact-form-panel').classList.remove('hidden');
+    }
+
+    // ---- Programs data ----
+    const programs = [
+      { title: 'Reportages Actus', description: "Des reportages au cœur de l'actualité locale des villes de la principauté de Monaco et des Alpes-Maritimes.", category: 'Actu & Société', categoryColor: 'pink', image: 'https://www.agoracotedazur.fr/wp-content/uploads/Reportages-actusocieté.jpg' },
+      { title: 'Ciné Passion', description: 'Critiques des films sortis dans les salles du département, avec Pascal Gaymard. Vivez le 7ème art.', category: 'Culture', categoryColor: 'blue', image: 'https://www.agoracotedazur.fr/wp-content/uploads/Cine-passion-1.jpg' },
+      { title: 'La Boîte de Jazz', description: "Hommage à Gilbert d'Alto. Une sélection des plus belles pépites jazz pour accompagner vos soirées.", category: 'Musique', categoryColor: 'yellow', image: 'https://www.agoracotedazur.fr/wp-content/uploads/elementor/thumbs/La-boite-de-Jazz-r03whyvg48wm9fxk48bbaxaw3zd00h5ebdn2bqffiw.jpg' },
+      { title: 'Le Bonheur est dans la Poêle', description: 'Gastronomie, recettes provençales et rencontres avec les chefs de la région.', category: 'Gastronomie', categoryColor: 'orange', image: 'https://www.agoracotedazur.fr/wp-content/uploads/Le-bonheur-est-dans-la-poele.jpg' },
+      { title: 'La Chronique Écolo', description: "Écologie, biodiversité méditerranéenne et initiatives vertes sur la Côte d'Azur.", category: 'Environnement', categoryColor: 'green', image: 'https://www.agoracotedazur.fr/wp-content/uploads/La-chronique-ecolo.jpg' },
+      { title: "L'Artiste du Jour", description: 'Découverte musicale quotidienne, talents locaux et émergents.', category: 'Musique', categoryColor: 'yellow', image: 'https://www.agoracotedazur.fr/wp-content/uploads/elementor/thumbs/L-artiste-du-jour-r25zw7f1d1l360gqc3m1n1dz1m9cwanm14imejdaoo.jpg' },
+      { title: 'Alter Regard', description: 'Un autre regard sur la société et les enjeux contemporains.', category: 'Actu & Société', categoryColor: 'pink', image: 'https://www.agoracotedazur.fr/wp-content/uploads/Alter-regard.jpg' },
+      { title: 'Scène Régionale', description: 'La scène musicale locale et les artistes de la région.', category: 'Musique', categoryColor: 'yellow', image: 'https://www.agoracotedazur.fr/wp-content/uploads/Scène-régionale-1.jpg' },
+      { title: 'Sorties Ciné', description: 'Les films de la semaine décryptés et notés par notre équipe.', category: 'Culture', categoryColor: 'blue', image: 'https://www.agoracotedazur.fr/wp-content/uploads/Sorties-Cine-1-1.jpg' },
+      { title: 'Parlons des Droits Humains', description: 'Droits humains et enjeux sociétaux décryptés.', category: 'Actu & Société', categoryColor: 'pink', image: 'https://www.agoracotedazur.fr/wp-content/uploads/Parlons-des-droits-humains.jpg' },
+      { title: "J'ai lu pour vous", description: "Coups de cœur littéraires et interviews d'auteurs.", category: 'Littérature', categoryColor: 'purple', image: 'https://www.agoracotedazur.fr/wp-content/uploads/jai-lu-pourvous.jpg' },
+      { title: 'Horizons Partagés', description: 'Rencontres et témoignages inspirants du territoire.', category: 'Actu & Société', categoryColor: 'pink', image: 'https://www.agoracotedazur.fr/wp-content/uploads/Logo-Horizons-Partages.png' },
+    ];
+
+    const categories = [
+      { label: 'Tous 🎙️', value: 'all' },
+      { label: 'Actu & Société 📰', value: 'Actu & Société' },
+      { label: 'Culture 🎬', value: 'Culture' },
+      { label: 'Musique 🎵', value: 'Musique' },
+      { label: 'Sport ⚽', value: 'Sport' },
+      { label: 'Science & Tech 🔬', value: 'Science & Tech' },
+      { label: 'Bien-être 🧘', value: 'Bien-être' },
+      { label: 'Gastronomie 🍽️', value: 'Gastronomie' },
+      { label: 'Environnement 🌿', value: 'Environnement' },
+      { label: 'Politique 🏛️', value: 'Politique' },
+      { label: 'Littérature 📚', value: 'Littérature' },
+      { label: 'Humour 😂', value: 'Humour' },
+      { label: 'Jeunesse 🎒', value: 'Jeunesse' },
+      { label: 'Histoire 🏰', value: 'Histoire' },
+      { label: 'Économie 📈', value: 'Économie' },
+      { label: 'Voyage ✈️', value: 'Voyage' },
+    ];
+
+    const colorMap = {
+      pink: { bg: 'bg-accent-pink', text: 'text-white' },
+      blue: { bg: 'bg-accent-blue', text: 'text-white' },
+      yellow: { bg: 'bg-accent-yellow', text: 'text-navy' },
+      green: { bg: 'bg-accent-green', text: 'text-white' },
+      purple: { bg: 'bg-accent-purple', text: 'text-white' },
+      orange: { bg: 'bg-accent-orange', text: 'text-white' },
+    };
+
+    const PER_PAGE = 6;
+    let activeFilter = 'all';
+    let currentPage = 1;
+
+    // Streaming platform icons (small inline SVGs)
+    const platformIcons = `
+      <a href="https://open.spotify.com" target="_blank" rel="noopener" title="Spotify" class="text-navy/40 hover:text-accent-green transition-colors">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+      </a>
+      <a href="https://podcasts.apple.com" target="_blank" rel="noopener" title="Apple Podcasts" class="text-navy/40 hover:text-accent-purple transition-colors">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M5.34 0A5.328 5.328 0 000 5.34v13.32A5.328 5.328 0 005.34 24h13.32A5.328 5.328 0 0024 18.66V5.34A5.328 5.328 0 0018.66 0H5.34zm6.525 2.568c4.988 0 8.94 3.756 9.124 8.496.036.48.036.96-.036 1.476-.072.468-.54.792-1.008.72-.468-.072-.792-.54-.72-1.008.048-.396.06-.828.036-1.236-.144-3.96-3.468-7.14-7.648-7.14-4.236 0-7.692 3.312-7.692 7.392 0 1.86.696 3.624 1.956 4.968.324.348.504.792.54 1.272l.204 2.676c.024.312.264.552.576.552h8.604c.312 0 .552-.24.576-.552l.12-1.596c.036-.468.48-.816.948-.78.468.036.816.48.78.948l-.12 1.596c-.1 1.272-1.152 2.256-2.424 2.256H8.196c-1.272 0-2.328-.984-2.424-2.256l-.204-2.676a.456.456 0 00-.12-.288C4.14 15.84 3.3 13.74 3.3 11.52c0-4.884 4.14-8.952 8.565-8.952zM12 7.296a4.213 4.213 0 00-4.224 4.224c0 1.3.588 2.496 1.608 3.312.168.132.276.324.3.54l.372 3.468c.024.192.18.336.372.336h3.144c.192 0 .348-.144.372-.336l.372-3.468a.726.726 0 01.3-.54A4.194 4.194 0 0016.224 11.52 4.213 4.213 0 0012 7.296zm0 2.7a1.524 1.524 0 110 3.048 1.524 1.524 0 010-3.048z"/></svg>
+      </a>
+      <a href="https://www.deezer.com" target="_blank" rel="noopener" title="Deezer" class="text-navy/40 hover:text-accent-blue transition-colors">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><rect x="0" y="18" width="4" height="4" rx="0.5"/><rect x="5" y="18" width="4" height="4" rx="0.5"/><rect x="10" y="18" width="4" height="4" rx="0.5"/><rect x="15" y="18" width="4" height="4" rx="0.5"/><rect x="20" y="18" width="4" height="4" rx="0.5"/><rect x="10" y="13" width="4" height="4" rx="0.5"/><rect x="15" y="13" width="4" height="4" rx="0.5"/><rect x="20" y="13" width="4" height="4" rx="0.5"/><rect x="15" y="8" width="4" height="4" rx="0.5"/><rect x="20" y="8" width="4" height="4" rx="0.5"/><rect x="20" y="3" width="4" height="4" rx="0.5"/></svg>
+      </a>
+      <a href="https://www.youtube.com" target="_blank" rel="noopener" title="YouTube" class="text-navy/40 hover:text-brand transition-colors">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+      </a>
+    `;
+
+    // Build filter bar
+    function buildFilters() {
+      const bar = document.getElementById('filter-bar');
+      bar.innerHTML = '';
+      categories.forEach(cat => {
+        const btn = document.createElement('button');
+        btn.className = 'comic-btn text-sm px-3 py-1.5 rounded-md whitespace-nowrap transition-all ' +
+          (activeFilter === cat.value ? 'bg-brand text-white' : 'bg-cream-light text-navy hover:bg-cream');
+        btn.textContent = cat.label;
+        btn.onclick = () => {
+          activeFilter = cat.value;
+          currentPage = 1;
+          render();
+        };
+        bar.appendChild(btn);
+      });
+    }
+
+    // Get filtered programs
+    function getFiltered() {
+      if (activeFilter === 'all') return programs;
+      return programs.filter(p => p.category === activeFilter);
+    }
+
+    // Build program cards
+    function buildGrid() {
+      const grid = document.getElementById('programs-grid');
+      grid.innerHTML = '';
+      const filtered = getFiltered();
+      const start = (currentPage - 1) * PER_PAGE;
+      const pageItems = filtered.slice(start, start + PER_PAGE);
+
+      if (pageItems.length === 0) {
+        grid.innerHTML = '<div class="col-span-full text-center py-12"><p class="font-display text-2xl text-navy/50">Aucun programme dans cette catégorie.</p></div>';
+        return;
+      }
+
+      pageItems.forEach((prog, i) => {
+        const colors = colorMap[prog.categoryColor] || colorMap.pink;
+        const card = document.createElement('div');
+        card.className = 'comic-card rounded-lg animate-slide-up';
+        card.style.animationDelay = (i * 0.08) + 's';
+        card.innerHTML = `
+          <div class="relative h-48 overflow-hidden">
+            <img src="${prog.image}" alt="${prog.title}" class="w-full h-full object-cover" loading="lazy" />
+            <span class="category-badge ${colors.bg} ${colors.text} absolute top-3 left-3 px-3 py-1 rounded-full text-xs">${prog.category}</span>
+          </div>
+          <div class="p-4">
+            <h3 class="font-display text-xl text-navy mb-2">${prog.title}</h3>
+            <p class="text-sm text-navy/70 mb-4 line-clamp-2" style="display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">${prog.description}</p>
+            <div class="flex items-center justify-between">
+              <button class="comic-btn bg-brand text-white px-4 py-1.5 text-sm rounded-md">ÉCOUTER</button>
+              <div class="flex items-center gap-2">${platformIcons}</div>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    // Build pagination
+    function buildPagination() {
+      const pag = document.getElementById('pagination');
+      pag.innerHTML = '';
+      const filtered = getFiltered();
+      const totalPages = Math.ceil(filtered.length / PER_PAGE);
+      if (totalPages <= 1) return;
+
+      // Prev
+      const prev = document.createElement('button');
+      prev.className = 'comic-btn bg-white text-navy px-3 py-1.5 text-sm rounded-md' + (currentPage === 1 ? ' opacity-40 pointer-events-none' : '');
+      prev.textContent = '← Préc.';
+      prev.onclick = () => { if (currentPage > 1) { currentPage--; render(); } };
+      pag.appendChild(prev);
+
+      for (let i = 1; i <= totalPages; i++) {
+        const btn = document.createElement('button');
+        btn.className = 'comic-btn text-sm px-3 py-1.5 rounded-md ' + (i === currentPage ? 'bg-brand text-white' : 'bg-white text-navy');
+        btn.textContent = i;
+        btn.onclick = () => { currentPage = i; render(); };
+        pag.appendChild(btn);
+      }
+
+      // Next
+      const next = document.createElement('button');
+      next.className = 'comic-btn bg-white text-navy px-3 py-1.5 text-sm rounded-md' + (currentPage === totalPages ? ' opacity-40 pointer-events-none' : '');
+      next.textContent = 'Suiv. →';
+      next.onclick = () => { if (currentPage < totalPages) { currentPage++; render(); } };
+      pag.appendChild(next);
+    }
+
+    // Render all dynamic parts
+    function render() {
+      buildFilters();
+      buildGrid();
+      buildPagination();
+    }
+
+    // Initial render
+    render();
+  </script>
+</body>
+</html>
